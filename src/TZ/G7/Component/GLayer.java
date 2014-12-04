@@ -48,6 +48,7 @@ public class GLayer extends GComponent {
 	public void render(Graphics g) {
 		if (this.isbuffer) {
 			if (this.refresh) {
+				this.refresh = false;
 				super.render(this.buffer.getGraphics());
 			}
 			g.drawImage(this.buffer, 0, 0, null);
