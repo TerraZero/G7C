@@ -15,7 +15,7 @@ import java.awt.Graphics;
  * @identifier TZ.G7.Component.I
  *
  */
-public interface GBackground {
+public interface GRender {
 
 	public void render(Graphics g, int width, int height);
 	

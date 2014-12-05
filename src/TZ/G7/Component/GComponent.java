@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import TZ.G7.GObj;
-import TZ.G7.Component.I.GBackground;
+import TZ.G7.Component.I.GRender;
 import TZ.G7.Component.I.GComp;
 
 /**
@@ -30,8 +30,9 @@ public class GComponent extends GObj implements GComp {
 	protected int width;
 	protected int height;
 	
-	protected GBackground background;
+	protected GRender background;
 	protected List<GComp> components;
+	protected List<GRender> renders;
 	
 	public GComponent() {
 		
@@ -48,8 +49,9 @@ public class GComponent extends GObj implements GComp {
 	protected void init() {
 		super.init();
 		this.component = "Component";
-		this.background = new DefaultBackground();
+		this.background = new FillBackground();
 		this.components = new ArrayList<GComp>();
+		this.renders = new ArrayList<GRender>();
 	}
 	
 	/* 
@@ -65,8 +67,7 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public GComp width(int width) {
-		this.width = width;
-		return this;
+		return this.size(width, this.height);
 	}
 
 	/* 
@@ -74,8 +75,7 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public GComp height(int height) {
-		this.height = height;
-		return this;
+		return this.size(this.width, height);
 	}
 
 	/* 
@@ -83,8 +83,7 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public GComp x(int x) {
-		this.x = x;
-		return this;
+		return this.location(x, this.y);
 	}
 
 	/* 
@@ -92,8 +91,7 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public GComp y(int y) {
-		this.y = y;
-		return this;
+		return this.location(this.x, y);
 	}
 
 	/* 
@@ -101,8 +99,8 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public GComp size(int width, int height) {
-		this.width(width);
-		this.height(height);
+		this.width = width;
+		this.height = height;
 		return this;
 	}
 
@@ -111,9 +109,7 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public GComp size(Dimension size) {
-		this.width(size.width);
-		this.height(size.height);
-		return this;
+		return this.size(size.width, size.height);
 	}
 
 	/* 
@@ -121,8 +117,8 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public GComp location(int x, int y) {
-		this.x(x);
-		this.y(y);
+		this.x = x;
+		this.y = y;
 		return this;
 	}
 
@@ -131,9 +127,7 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public GComp location(Point p) {
-		this.x(p.x);
-		this.y(p.y);
-		return this;
+		return this.location(p.x, p.y);
 	}
 
 	/* 
@@ -141,11 +135,7 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public GComp bounds(int x, int y, int width, int height) {
-		this.x(x);
-		this.y(y);
-		this.width(width);
-		this.height(height);
-		return this;
+		return this.location(x, y).size(width, height);
 	}
 
 	/* 
@@ -153,11 +143,7 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public GComp bounds(Point p, Dimension size) {
-		this.x(p.x);
-		this.y(p.y);
-		this.width(size.width);
-		this.height(size.height);
-		return this;
+		return this.location(p.x, p.y).size(size.width, size.height);
 	}
 
 	/* 
@@ -165,11 +151,7 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public GComp bounds(Rectangle bounds) {
-		this.x(bounds.x);
-		this.y(bounds.y);
-		this.width(bounds.width);
-		this.height(bounds.height);
-		return this;
+		return this.location(bounds.x, bounds.y).size(bounds.width, bounds.height);
 	}
 
 	/* 
@@ -240,17 +222,34 @@ public class GComponent extends GObj implements GComp {
 	 * @see TZ.G7.Component.I.GComp#getBackground()
 	 */
 	@Override
-	public GBackground background() {
-		return this.background;
+	public List<GRender> renders() {
+		return this.renders;
 	}
 
 	/* 
 	 * @see TZ.G7.Component.I.GComp#setBackground(TZ.G7.Component.I.GBackground)
 	 */
 	@Override
-	public GComp background(GBackground background) {
-		this.background = background;
+	public GComp add(GRender render) {
+		this.renders.add(render);
 		return this;
+	}
+	
+	/* 
+	 * @see TZ.G7.Component.I.GComp#removeRender(TZ.G7.Component.I.GRender)
+	 */
+	@Override
+	public GComp remove(GRender render) {
+		this.renders.remove(render);
+		return this;
+	}
+
+	/* 
+	 * @see TZ.G7.Component.I.GComp#renderRender(java.awt.Graphics)
+	 */
+	@Override
+	public void renderRender(Graphics g) {
+		this.renders.forEach((r) -> r.render(g, this.width, this.height));
 	}
 
 	/* 
@@ -259,6 +258,7 @@ public class GComponent extends GObj implements GComp {
 	@Override
 	public void render(Graphics g) {
 		this.renderComponent(g);
+		this.renderRender(g);
 		this.renderContainer(g);
 	}
 
@@ -267,7 +267,7 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public void renderComponent(Graphics g) {
-		this.background.render(g, this.width, this.height);
+		
 	}
 
 	/* 

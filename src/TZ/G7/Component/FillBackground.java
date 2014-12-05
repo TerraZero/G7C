@@ -7,7 +7,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import TZ.G7.GObj;
-import TZ.G7.Component.I.GBackground;
+import TZ.G7.Component.I.GRender;
 
 /**
  * 
@@ -19,15 +19,15 @@ import TZ.G7.Component.I.GBackground;
  * @identifier TZ.G7.Component
  *
  */
-public class DefaultBackground extends GObj implements GBackground {
+public class FillBackground extends GObj implements GRender {
 	
 	protected Color color;
 	
-	public DefaultBackground() {
+	public FillBackground() {
 		this.color = Color.BLACK;
 	}
 	
-	public DefaultBackground(Color color) {
+	public FillBackground(Color color) {
 		this.color = color;
 	}
 

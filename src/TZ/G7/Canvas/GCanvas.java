@@ -5,6 +5,7 @@ package TZ.G7.Canvas;
 
 import java.awt.Canvas;
 import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,8 @@ public class GCanvas extends Canvas {
 	private static final long serialVersionUID = 1L;
 	
 	protected List<GLayer> layers;
+	
+	protected BufferStrategy bs;
 	
 	public GCanvas() {
 		this.init();
@@ -60,13 +63,19 @@ public class GCanvas extends Canvas {
 		return this.layers.get(layer);
 	}
 	
-	/* 
-	 * @see java.awt.Canvas#paint(java.awt.Graphics)
-	 */
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
+	public void createBuffer() {
+		this.createBufferStrategy(3);
+		this.bs = this.getBufferStrategy();
+	}
+	
+	public Graphics getShowGraphics() {
+		return this.bs.getDrawGraphics();
+	}
+	
+	public void render() {
+		Graphics g = this.getShowGraphics();
 		this.renderComponents(g);
+		this.bs.show();
 	}
 	
 	public void renderComponents(Graphics g) {

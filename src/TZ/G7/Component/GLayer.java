@@ -22,23 +22,12 @@ public class GLayer extends GComponent {
 	protected BufferedImage buffer;
 	
 	/* 
-	 * @see TZ.G7.Component.GComponent#setWidth(int)
+	 * @see TZ.G7.Component.GComponent#size(int, int)
 	 */
 	@Override
-	public GComp width(int width) {
-		this.actionResize(width, this.height);
-		super.width(width);
-		return this;
-	}
-	
-	/* 
-	 * @see TZ.G7.Component.GComponent#setHeight(int)
-	 */
-	@Override
-	public GComp height(int height) {
-		this.actionResize(this.width, height);
-		super.height(height);
-		return this;
+	public GComp size(int width, int height) {
+		if (width != this.width || height != this.height) this.actionResize(width, height);
+		return super.size(width, height);
 	}
 	
 	/* 
@@ -48,8 +37,8 @@ public class GLayer extends GComponent {
 	public void render(Graphics g) {
 		if (this.isbuffer) {
 			if (this.refresh) {
-				this.refresh = false;
 				super.render(this.buffer.getGraphics());
+				this.refresh = false;
 			}
 			g.drawImage(this.buffer, 0, 0, null);
 		} else {
@@ -93,9 +82,14 @@ public class GLayer extends GComponent {
 	 */
 	protected BufferedImage createBuffer(int width, int height) {
 		this.refresh = true;
+		if (width < 1) width = 1;
+		if (height < 1) height = 1;
 		return new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 	}
 	
+	/**
+	 * refresh the buffer
+	 */
 	public void refresh() {
 		this.refresh = true;
 	}
