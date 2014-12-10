@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import TZ.G7.GObj;
-import TZ.G7.Component.I.GRender;
 import TZ.G7.Component.I.GComp;
 
 /**
@@ -30,9 +29,7 @@ public class GComponent extends GObj implements GComp {
 	protected int width;
 	protected int height;
 	
-	protected GRender background;
 	protected List<GComp> components;
-	protected List<GRender> renders;
 	
 	public GComponent() {
 		
@@ -49,9 +46,7 @@ public class GComponent extends GObj implements GComp {
 	protected void init() {
 		super.init();
 		this.component = "Component";
-		this.background = new FillBackground();
 		this.components = new ArrayList<GComp>();
-		this.renders = new ArrayList<GRender>();
 	}
 	
 	/* 
@@ -217,48 +212,13 @@ public class GComponent extends GObj implements GComp {
 	public String toString() {
 		return this.getComponent() + "[P(" + this.x() + ", " + this.y() + "), S[" + this.width() + ", " + this.height() + "]]";
 	}
-
-	/* 
-	 * @see TZ.G7.Component.I.GComp#getBackground()
-	 */
-	@Override
-	public List<GRender> renders() {
-		return this.renders;
-	}
-
-	/* 
-	 * @see TZ.G7.Component.I.GComp#setBackground(TZ.G7.Component.I.GBackground)
-	 */
-	@Override
-	public GComp add(GRender render) {
-		this.renders.add(render);
-		return this;
-	}
 	
-	/* 
-	 * @see TZ.G7.Component.I.GComp#removeRender(TZ.G7.Component.I.GRender)
-	 */
-	@Override
-	public GComp remove(GRender render) {
-		this.renders.remove(render);
-		return this;
-	}
-
-	/* 
-	 * @see TZ.G7.Component.I.GComp#renderRender(java.awt.Graphics)
-	 */
-	@Override
-	public void renderRender(Graphics g) {
-		this.renders.forEach((r) -> r.render(g, this.width, this.height));
-	}
-
 	/* 
 	 * @see TZ.G7.Component.I.GComp#render(java.awt.Graphics)
 	 */
 	@Override
 	public void render(Graphics g) {
 		this.renderComponent(g);
-		this.renderRender(g);
 		this.renderContainer(g);
 	}
 

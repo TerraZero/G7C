@@ -56,17 +56,9 @@ public interface GComp {
 	
 	public Rectangle bounds();
 	
-	public List<GRender> renders();
-	
-	public GComp add(GRender render);
-	
-	public GComp remove(GRender render);
-	
 	public void render(Graphics g);
 	
 	public void renderComponent(Graphics g);
-	
-	public void renderRender(Graphics g);
 	
 	public void renderContainer(Graphics g);
 	
