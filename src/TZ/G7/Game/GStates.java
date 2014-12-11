@@ -37,6 +37,7 @@ public class GStates {
 		switch (this.state) {
 			case "option"  :
 				
+				break;
 			case "game" :
 				
 				break;

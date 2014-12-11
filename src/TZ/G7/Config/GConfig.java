@@ -3,6 +3,8 @@ package TZ.G7.Config;
 import java.util.HashMap;
 import java.util.Map;
 
+import TZ.G7.GObj;
+
 /**
  * 
  * @author Terra
@@ -13,21 +15,51 @@ import java.util.Map;
  * @identifier TZ.G7.Config
  *
  */
-public class GConfig {
+public class GConfig extends GObj {
 	
-	private static Map<String, String> configs;
+	private static GConfig singleton;
 	
-	static {
-		GConfig.configs = new HashMap<String, String>();
+	public static GConfig singleton() {
+		if (GConfig.singleton == null) {
+			GConfig.singleton = new GConfig();
+		}
+		return GConfig.singleton;
+	}
+	
+	private Map<String, String> configs;
+	
+	@Override
+	protected void init() {
+		this.configs = new HashMap<String, String>();
+	}
+	
+	public void initSettings() {
+		String os = System.getProperty("os.name").toLowerCase();
+		if (os.contains("win")) {
+			
+		} else if (os.contains("mac")) {
+			
+		} else {
+			System.setProperty("sun.java2d.opengl", "true");
+		}
 	}
 
-	public static String get(String name, String fallback) {
-		String value = GConfig.configs.get(name);
+	public String get(String name, String fallback) {
+		String value = this.configs.get(name);
 		return (value == null ? fallback : value);
 	}
 	
-	public static void set(String name, String value) {
-		GConfig.configs.put(name, value);
+	public int getInt(String name, int fallback) {
+		try {
+			String value = this.configs.get(name);
+			return (value == null ? fallback : Integer.parseInt(value));
+		} catch (NumberFormatException e) {
+			return fallback;
+		}
+	}
+	
+	public void set(String name, String value) {
+		this.configs.put(name, value);
 	}
 	
 }

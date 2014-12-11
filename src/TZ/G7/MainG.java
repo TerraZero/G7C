@@ -1,5 +1,6 @@
 package TZ.G7;
 
+import TZ.G7.Config.GConfig;
 import TZ.G7.Exception.GException;
 import TZ.G7.Game.GFrame;
 import TZ.G7.Game.GLoop;
@@ -25,6 +26,7 @@ public class MainG {
 	}
 	
 	public static void start() {
+		GConfig.singleton().initSettings();
 		GFrame.singleton().start();
 		try {
 			Thread.sleep(1000);

@@ -1,5 +1,7 @@
 package TZ.G7.Game;
 
+import TZ.G7.Handler.GHandler;
+
 /**
  * 
  * @author Terra
@@ -63,7 +65,9 @@ public class GLoop {
 	}
 	
 	public void update(float delta) {
+		GHandler.singleton().preFrame();
 		GStates.singleton().update(delta);
+		GHandler.singleton().purge();
 	}
 	
 	public void render() {

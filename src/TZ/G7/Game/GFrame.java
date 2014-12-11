@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import TZ.G7.Canvas.GCanvas;
+import TZ.G7.Handler.GHandler;
 
 /**
  * 
@@ -47,6 +48,7 @@ public class GFrame {
 		this.frame.setContentPane(this.cp);
 		
 		this.frame.add(GCanvas.singleton());
+		
 		this.frame.addComponentListener(new ComponentListener() {
 			
 			@Override

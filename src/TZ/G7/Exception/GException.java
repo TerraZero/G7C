@@ -36,7 +36,7 @@ public class GException extends RuntimeException {
 	 */
 	@Override
 	public String toString() {
-		if (GConfig.get("exception", "debug").equals("debug")) {
+		if (GConfig.singleton().get("exception", "debug").equals("debug")) {
 			return this.debug;
 		} else {
 			return this.message;

@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 
 import TZ.G7.Game.State.GState;
+import TZ.G7.Handler.GHandler;
 
 /**
  * 
@@ -41,6 +42,7 @@ public class GCanvas extends Canvas {
 	
 	protected void init() {
 		this.setBackground(Color.BLACK);
+		this.addKeyListener(GHandler.singleton().keys());
 	}
 	
 	public void createBuffer() {
