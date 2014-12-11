@@ -56,6 +56,8 @@ public interface GComp {
 	
 	public Rectangle bounds();
 	
+	public void update(float delta);
+	
 	public void render(Graphics g);
 	
 	public void renderComponent(Graphics g);

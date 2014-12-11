@@ -2,10 +2,6 @@ package TZ.G7.Game.State;
 
 import java.awt.Graphics;
 
-import javax.swing.JOptionPane;
-
-import TZ.G7.Actions.GKeyAction;
-
 /**
  * 
  * @author Terra
@@ -20,13 +16,21 @@ public class MenuState extends GState {
 	
 	public static final String STATE = "menu";
 	
+	private static MenuState singleton;
+	
+	public static MenuState singleton() {
+		if (MenuState.singleton == null) {
+			MenuState.singleton = new MenuState();
+		}
+		return MenuState.singleton;
+	}
+	
 	/* 
 	 * @see TZ.G7.Game.State.GState#init()
 	 */
 	@Override
 	protected void init() {
 		super.init();
-		this.actions.add(new GKeyAction("s+d", d -> JOptionPane.showConfirmDialog(null, "Send text")));
 	}
 
 	/* 

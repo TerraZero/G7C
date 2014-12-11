@@ -1,8 +1,9 @@
 package TZ.G7.Animation;
 
 import TZ.G7.GObj;
-import TZ.G7.Animation.I.GAni;
+import TZ.G7.Actions.GAction;
 import TZ.G7.Component.I.GComp;
+import TZ.G7.Game.State.GState;
 
 /**
  * 
@@ -14,69 +15,52 @@ import TZ.G7.Component.I.GComp;
  * @identifier TZ.G7.Animation
  *
  */
-public class GAnimation extends GObj implements GAni {
+public abstract class GAnimation extends GObj implements GAction {
 	
-	protected String function;
+	protected GState state;
 	protected GComp component;
-	protected long duration;
-
-	/* 
-	 * @see TZ.G7.Animation.GAni#function(java.lang.String)
-	 */
-	@Override
-	public GAni function(String function) {
-		this.function = function;
-		return this;
-	}
-
-	/* 
-	 * @see TZ.G7.Animation.GAni#component(TZ.G7.Component.I.GComp)
-	 */
-	@Override
-	public GAni component(GComp component) {
+	protected int duration;
+	
+	public GAnimation(GState state, GComp component, int duration) {
 		this.component = component;
-		return this;
-	}
-
-	/* 
-	 * @see TZ.G7.Animation.GAni#duration(long)
-	 */
-	@Override
-	public GAni duration(long duration) {
 		this.duration = duration;
-		return this;
+		this.state = state;
+		this.state.addAction(this);
 	}
-
+	
 	/* 
-	 * @see TZ.G7.Animation.GAni#update()
+	 * @see TZ.G7.GObj#init()
 	 */
 	@Override
-	public GAni update() {
-		return this;
+	protected void init() {
+		super.init();
 	}
-
-	/* 
-	 * @see TZ.G7.Animation.GAni#function()
-	 */
-	@Override
-	public String function() {
-		return this.function;
+	
+	public int duration() {
+		return this.duration;
 	}
-
-	/* 
-	 * @see TZ.G7.Animation.GAni#component()
-	 */
-	@Override
+	
 	public GComp component() {
 		return this.component;
 	}
-
+	
+	public GState state() {
+		return this.state;
+	}
+	
 	/* 
-	 * @see TZ.G7.Animation.GAni#duration()
+	 * @see TZ.G7.Actions.GAction#update(float)
 	 */
 	@Override
-	public long duration() {
-		return this.duration;
+	public void update(float delta) {
+		this.animation(delta);
+		if (this.finished()) {
+			state.removeAction(this);
+		}
 	}
+	
+	public abstract void animation(float delta);
+	
+	public abstract boolean finished();
 
 }

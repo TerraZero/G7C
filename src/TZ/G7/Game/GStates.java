@@ -29,7 +29,7 @@ public class GStates {
 	}
 	
 	public GStates() {
-		this.menu = new MenuState();
+		this.menu = MenuState.singleton();
 		this.state = MenuState.STATE;
 	}
 

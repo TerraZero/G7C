@@ -82,14 +82,15 @@ public class GKeyHandler extends GObj implements KeyListener {
 	}
 	
 	public boolean isAction(String test) {
-		// alle als wichtig machen
 		if (this.actions.isEmpty()) return false;
+		
 		String[] items = this.actions.get(0).split("\\+");
 		String[] tests = test.split("\\+");
-		if (items.length == tests.length) {
-			for (int i = 0; i < tests.length; i++) {
-				if (!Strings.isIntern(tests[i], items)) return false;
-			}
+		
+		if (items.length != tests.length) return false;
+		
+		for (int i = 0; i < tests.length; i++) {
+			if (!Strings.isIntern(tests[i], items)) return false;
 		}
 		return true;
 	}

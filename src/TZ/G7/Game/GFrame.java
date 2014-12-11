@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import TZ.G7.Canvas.GCanvas;
-import TZ.G7.Handler.GHandler;
 
 /**
  * 
@@ -72,14 +71,8 @@ public class GFrame {
 	}
 	
 	public void start() {
-		new Thread() {
-			
-			public void run() {
-				GFrame.this.frame.setVisible(true);
-				GCanvas.singleton().createBuffer();
-			}
-			
-		}.start();
+		GFrame.this.frame.setVisible(true);
+		GCanvas.singleton().createBuffer();
 	}
 	
 }

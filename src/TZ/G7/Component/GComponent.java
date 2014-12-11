@@ -29,6 +29,8 @@ public class GComponent extends GObj implements GComp {
 	protected int width;
 	protected int height;
 	
+	protected boolean anibounds;
+	
 	protected List<GComp> components;
 	
 	public GComponent() {
@@ -46,6 +48,10 @@ public class GComponent extends GObj implements GComp {
 	protected void init() {
 		super.init();
 		this.component = "Component";
+		this.x = -1;
+		this.y = -1;
+		this.width = -1;
+		this.height = -1;
 		this.components = new ArrayList<GComp>();
 	}
 	
@@ -262,6 +268,16 @@ public class GComponent extends GObj implements GComp {
 	public GComp remove(GComp component) {
 		this.components.remove(component);
 		return this;
+	}
+
+	/* 
+	 * @see TZ.G7.Component.I.GComp#update(float)
+	 */
+	@Override
+	public void update(float delta) {
+		if (this.anibounds) {
+			
+		}
 	}
 
 }

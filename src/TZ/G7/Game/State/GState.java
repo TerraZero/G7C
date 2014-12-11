@@ -20,6 +20,8 @@ import TZ.G7.Component.GComponent;
 public class GState extends GComponent {
 	
 	protected List<GAction> actions;
+	protected List<GAction> addActions;
+	protected List<GAction> removeActions;
 	
 	/*
 	 * @see TZ.G7.Component.GComponent#init()
@@ -28,6 +30,8 @@ public class GState extends GComponent {
 	protected void init() {
 		super.init();
 		this.actions = new ArrayList<GAction>();
+		this.addActions = new ArrayList<GAction>();
+		this.removeActions = new ArrayList<GAction>();
 	}
 
 	public void render(Graphics g, int width, int height) {
@@ -36,6 +40,18 @@ public class GState extends GComponent {
 	
 	public void update(float delta) {
 		this.actions.forEach(a -> a.update(delta));
+		this.actions.addAll(this.addActions);
+		this.addActions.clear();
+		this.actions.removeAll(this.removeActions);
+		this.removeActions.clear();
+	}
+	
+	public void addAction(GAction action) {
+		this.addActions.add(action);
+	}
+	
+	public void removeAction(GAction action) {
+		this.removeActions.add(action);
 	}
 	
 }
