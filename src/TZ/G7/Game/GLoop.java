@@ -57,7 +57,6 @@ public class GLoop {
 				frameTime -= delta;
 			}
 			this.render();
-			break;
 		}
 	}
 	
@@ -66,9 +65,8 @@ public class GLoop {
 	}
 	
 	public void update(float delta) {
-		GHandler.singleton().preFrame();
+		GStates.singleton().event(GHandler.singleton().getInput());
 		GStates.singleton().update(delta);
-		GHandler.singleton().purge();
 	}
 	
 	public void render() {

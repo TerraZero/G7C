@@ -1,6 +1,9 @@
 package TZ.G7.Game.State;
 
+import java.awt.Color;
 import java.awt.Graphics;
+
+import TZ.G7.Handler.GInput;
 
 /**
  * 
@@ -14,7 +17,7 @@ import java.awt.Graphics;
  */
 public class MenuState extends GState {
 	
-	public static final String STATE = "menu";
+	public static final String NAME = "menu";
 	
 	private static MenuState singleton;
 	
@@ -25,12 +28,21 @@ public class MenuState extends GState {
 		return MenuState.singleton;
 	}
 	
+	protected String state;
+	
+	protected Color back;
+	
+	public MenuState() {
+		super(MenuState.NAME);
+	}
+	
 	/* 
 	 * @see TZ.G7.Game.State.GState#init()
 	 */
 	@Override
 	protected void init() {
 		super.init();
+		this.state = "";
 	}
 
 	/* 
@@ -49,6 +61,27 @@ public class MenuState extends GState {
 	@Override
 	public void render(Graphics g) {
 		super.render(g);
+		switch (this.state) {
+			case "a" :
+				g.setColor(Color.GREEN);
+				break;
+			case "s" :
+				g.setColor(Color.RED);
+				break;
+			case "d" :
+				g.setColor(Color.BLUE);
+				break;
+			case "f" :
+				g.setColor(Color.ORANGE);
+				break;
+			case "g" :
+				g.setColor(Color.YELLOW);
+				break;
+			default :
+				g.setColor(Color.BLACK);
+				break;
+		}
+		g.fillRect(0, 0, this.width, this.height);
 	}
 	
 	/* 
@@ -57,6 +90,19 @@ public class MenuState extends GState {
 	@Override
 	public void update(float delta) {
 		super.update(delta);
+	}
+	
+	/* 
+	 * @see TZ.G7.Game.State.GState#event(TZ.G7.Handler.GInput)
+	 */
+	@Override
+	public void event(GInput input) {
+		super.event(input);
+		if (input.isPressed('f', 'g')) {
+			this.state = "d";
+		} else if (input.isReleased('f', 'g')) {
+			this.state = "";
+		}
 	}
 	
 }

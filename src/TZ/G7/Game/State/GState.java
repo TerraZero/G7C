@@ -1,11 +1,9 @@
 package TZ.G7.Game.State;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
-import java.util.List;
 
-import TZ.G7.Actions.GAction;
 import TZ.G7.Component.GComponent;
+import TZ.G7.Handler.GInput;
 
 /**
  * 
@@ -19,9 +17,14 @@ import TZ.G7.Component.GComponent;
  */
 public class GState extends GComponent {
 	
-	protected List<GAction> actions;
-	protected List<GAction> addActions;
-	protected List<GAction> removeActions;
+	protected boolean transparentUpdate;
+	protected boolean transparentRender;
+	protected boolean transparentEvent;
+	protected String name;
+	
+	public GState(String name) {
+		this.name = name;
+	}
 	
 	/*
 	 * @see TZ.G7.Component.GComponent#init()
@@ -29,9 +32,6 @@ public class GState extends GComponent {
 	@Override
 	protected void init() {
 		super.init();
-		this.actions = new ArrayList<GAction>();
-		this.addActions = new ArrayList<GAction>();
-		this.removeActions = new ArrayList<GAction>();
 	}
 
 	public void render(Graphics g, int width, int height) {
@@ -39,19 +39,27 @@ public class GState extends GComponent {
 	}
 	
 	public void update(float delta) {
-		this.actions.forEach(a -> a.update(delta));
-		this.actions.addAll(this.addActions);
-		this.addActions.clear();
-		this.actions.removeAll(this.removeActions);
-		this.removeActions.clear();
+		
 	}
 	
-	public void addAction(GAction action) {
-		this.addActions.add(action);
+	public void event(GInput input) {
+		
 	}
 	
-	public void removeAction(GAction action) {
-		this.removeActions.add(action);
+	public boolean isTransparentUpdate() {
+		return this.transparentUpdate;
+	}
+	
+	public boolean isTransparentRender() {
+		return this.transparentRender;
+	}
+	
+	public boolean isTransparentEvent() {
+		return this.transparentEvent;
+	}
+	
+	public String name() {
+		return this.name;
 	}
 	
 }
