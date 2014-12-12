@@ -57,6 +57,7 @@ public class GLoop {
 				frameTime -= delta;
 			}
 			this.render();
+			break;
 		}
 	}
 	

@@ -1,7 +1,10 @@
 package TZ.G7;
 
+import java.awt.AWTEvent;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Toolkit;
+import java.awt.event.AWTEventListener;
 
 import TZ.G7.Actions.GKeyAction;
 import TZ.G7.Animation.SizeAnimation;
@@ -25,6 +28,15 @@ import TZ.G7.Game.State.MenuState;
 public class MainG {
 
 	public static void main(String[] args) {
+		// fatal
+		Toolkit.getDefaultToolkit().addAWTEventListener(new AWTEventListener() {
+
+			@Override
+			public void eventDispatched(AWTEvent e) {
+				System.out.println(e);
+			}
+			
+		}, AWTEvent.MOUSE_EVENT_MASK + AWTEvent.KEY_EVENT_MASK);
 		try {
 			MainG.start();
 		} catch (GException e) {
