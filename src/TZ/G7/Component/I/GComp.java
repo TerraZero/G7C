@@ -32,11 +32,7 @@ public interface GComp {
 	
 	public void update(float delta);
 	
-	public void render(Graphics g);
-	
 	public void renderComponent(Graphics g);
-	
-	public void renderContainer(Graphics g);
 	
 	public List<GComp> getComponents();
 	
@@ -45,6 +41,8 @@ public interface GComp {
 	public GComp remove(GComp component);
 	
 	
+	
+	// defaults
 	
 	public default String getComponent() {
 		return "GComp";
@@ -96,9 +94,22 @@ public interface GComp {
 	
 	public default Rectangle bounds() {
 		return new Rectangle(this.x(), this.y(), this.width(), this.height());
-	}	
+	}
+	
+	public default void render(Graphics g) {
+		this.renderComponent(g);
+		this.renderContainer(g);
+	}
+	
+	public default void renderContainer(Graphics g) {
+		this.getComponents().forEach((c) -> c.render(g.create(c.x(), c.y(), c.width(), c.height())));
+	}
 	
 	public default void resize(int parentWidth, int parentHeight) {
+		this.resizeComponents(parentWidth, parentHeight);
+	}
+	
+	public default void resizeComponents(int parentWidth, int parentHeight) {
 		for (GComp c : this.getComponents()) {
 			c.resize(this.width(), this.height());
 		}
