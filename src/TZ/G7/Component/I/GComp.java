@@ -6,6 +6,8 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.List;
 
+import TZ.G7.Handler.GInput;
+
 /**
  * 
  * @author TerraZero
@@ -30,7 +32,9 @@ public interface GComp {
 	
 	public int y();
 	
-	public void update(float delta);
+	public void updateComponent(float delta);
+	
+	public void eventComponent(GInput input);
 	
 	public void renderComponent(Graphics g);
 	
@@ -112,6 +116,28 @@ public interface GComp {
 	public default void resizeComponents(int parentWidth, int parentHeight) {
 		for (GComp c : this.getComponents()) {
 			c.resize(this.width(), this.height());
+		}
+	}
+	
+	public default void event(GInput input) {
+		this.eventComponent(input);
+		this.eventComponents(input);
+	}
+	
+	public default void update(float delta) {
+		this.updateComponent(delta);
+		this.updateComponents(delta);
+	}
+	
+	public default void updateComponents(float delta) {
+		for (GComp c : this.getComponents()) {
+			c.update(delta);
+		}
+	}
+	
+	public default void eventComponents(GInput input) {
+		for (GComp c : this.getComponents()) {
+			c.event(input);
 		}
 	}
 	

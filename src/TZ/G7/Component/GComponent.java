@@ -6,6 +6,7 @@ import java.util.List;
 
 import TZ.G7.GObj;
 import TZ.G7.Component.I.GComp;
+import TZ.G7.Handler.GInput;
 
 /**
  * 
@@ -120,14 +121,6 @@ public class GComponent extends GObj implements GComp {
 	}
 
 	/* 
-	 * @see TZ.G7.Component.I.GComp#renderComponent(java.awt.Graphics)
-	 */
-	@Override
-	public void renderComponent(Graphics g) {
-		
-	}
-
-	/* 
 	 * @see TZ.G7.Component.I.GComp#getComponents()
 	 */
 	@Override
@@ -152,12 +145,28 @@ public class GComponent extends GObj implements GComp {
 		this.components.remove(component);
 		return this;
 	}
-
+	
 	/* 
-	 * @see TZ.G7.Component.I.GComp#update(float)
+	 * @see TZ.G7.Component.I.GComp#updateComponent(float)
 	 */
 	@Override
-	public void update(float delta) {
+	public void updateComponent(float delta) {
+		
+	}
+
+	/* 
+	 * @see TZ.G7.Component.I.GComp#eventComponent(TZ.G7.Handler.GInput)
+	 */
+	@Override
+	public void eventComponent(GInput input) {
+		
+	}
+	
+	/* 
+	 * @see TZ.G7.Component.I.GComp#renderComponent(java.awt.Graphics)
+	 */
+	@Override
+	public void renderComponent(Graphics g) {
 		
 	}
 
