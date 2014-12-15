@@ -35,6 +35,7 @@ public class GHandler extends GObj implements AWTEventListener {
 	
 	protected List<KeyEvent> keys;
 	protected List<MouseEvent> mouses;
+	protected MouseEvent movedCache; 
 	
 	@Override
 	protected void init() {
@@ -49,6 +50,15 @@ public class GHandler extends GObj implements AWTEventListener {
 	public void updateInput() {
 		this.input.updateKeys(this.keys);
 		this.keys.clear();
+		
+		// add move event
+		if (this.movedCache != null) {
+			this.mouses.add(this.movedCache);
+			this.movedCache = null;
+		}
+		
+		this.input.updateMouse(this.mouses);
+		this.mouses.clear();
 	}
 	
 	public GInput getInput() {
@@ -76,7 +86,14 @@ public class GHandler extends GObj implements AWTEventListener {
 	
 	public void addMouseEvent(AWTEvent e) {
 		MouseEvent me = (MouseEvent)e;
-		this.mouses.add(me);
+		
+		// save only one mouse move event 
+		// save extra cause illegal modified exception
+		if (me.getID() == MouseEvent.MOUSE_MOVED) {
+			this.movedCache = me;
+		} else {
+			this.mouses.add(me);
+		}
 	}
 	
 	public void addKeyEvent(AWTEvent e) {

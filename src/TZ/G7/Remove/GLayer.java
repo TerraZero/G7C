@@ -1,8 +1,9 @@
-package TZ.G7.Component;
+package TZ.G7.Remove;
 
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+import TZ.G7.Component.GComponent;
 import TZ.G7.Component.I.GComp;
 
 /**
