@@ -33,11 +33,11 @@ public class GText extends GObj {
 		this.text = "";
 	}
 	
-	public String text() {
+	public String get() {
 		return this.text;
 	}
 	
-	public GText text(String text) {
+	public GText set(String text) {
 		this.text = text;
 		return this;
 	}

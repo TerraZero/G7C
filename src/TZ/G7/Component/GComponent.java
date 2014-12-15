@@ -6,6 +6,7 @@ import java.util.List;
 
 import TZ.G7.GObj;
 import TZ.G7.Component.I.GComp;
+import TZ.G7.Data.GText;
 import TZ.G7.Handler.GInput;
 
 /**
@@ -29,6 +30,8 @@ public class GComponent extends GObj implements GComp {
 	
 	protected List<GComp> components;
 	
+	protected GText text;
+	
 	public GComponent() {
 		
 	}
@@ -48,6 +51,7 @@ public class GComponent extends GObj implements GComp {
 		this.y = -1;
 		this.width = -1;
 		this.height = -1;
+		this.text = new GText();
 		this.components = new ArrayList<GComp>();
 	}
 	
@@ -117,7 +121,7 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public String toString() {
-		return this.getComponent() + "[P(" + this.x() + ", " + this.y() + "), S[" + this.width() + ", " + this.height() + "]]";
+		return this.getComponent() + "[P(" + this.x() + ", " + this.y() + "), S[" + this.width() + ", " + this.height() + "], " + "\"" + this.text + "\"" + "]";
 	}
 
 	/* 
@@ -168,6 +172,23 @@ public class GComponent extends GObj implements GComp {
 	@Override
 	public void renderComponent(Graphics g) {
 		
+	}
+
+	/* 
+	 * @see TZ.G7.Component.I.GComp#text(TZ.G7.Data.GText)
+	 */
+	@Override
+	public GComp text(GText text) {
+		this.text = text;
+		return this;
+	}
+
+	/* 
+	 * @see TZ.G7.Component.I.GComp#text()
+	 */
+	@Override
+	public GText text() {
+		return this.text;
 	}
 
 }

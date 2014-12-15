@@ -6,6 +6,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.List;
 
+import TZ.G7.Data.GText;
 import TZ.G7.Handler.GInput;
 
 /**
@@ -43,6 +44,10 @@ public interface GComp {
 	public GComp add(GComp component);
 	
 	public GComp remove(GComp component);
+	
+	public GComp text(GText text);
+	
+	public GText text();
 	
 	
 	
@@ -139,6 +144,11 @@ public interface GComp {
 		for (GComp c : this.getComponents()) {
 			c.event(input);
 		}
+	}
+	
+	public default GComp text(String text) {
+		this.text().set(text);
+		return this;
 	}
 	
 }
