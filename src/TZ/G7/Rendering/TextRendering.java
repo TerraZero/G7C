@@ -45,6 +45,11 @@ public class TextRendering {
 		return (height + TextRendering.getLineHeight(g) / 2) / 2;
 	}
 	
+	public static Graphics setFontSize(Graphics g, float size) {
+		g.setFont(g.getFont().deriveFont(size));
+		return g;
+	}
+	
 	public static int getSplitIndex(Graphics g, String text, int width) {
 		StringBuilder s = new StringBuilder();
 		char[] c = text.toCharArray();

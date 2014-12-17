@@ -23,5 +23,7 @@ public @interface ConfigItem {
 	public String[] values() default {};
 	public String fallback() default ConfigAnnot.NONE;
 	public String data() default "list";
+	public String datatyp() default "string";
+	public String description() default ConfigAnnot.NONE;
 	
 }

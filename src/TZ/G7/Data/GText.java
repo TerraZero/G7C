@@ -21,12 +21,14 @@ import TZ.G7.Rendering.TextRendering;
  *
  */
 @ConfigDefinition({
-	@ConfigItem(option = "text-color", data = "color")
+	@ConfigItem(option = "text-color", data = "color", description = "The default text color."),
+	@ConfigItem(option = "text-size", data = "size", datatyp = "int", description = "The default font size.")
 })
 public class GText extends GObj {
 
 	protected String text;
 	protected Color color;
+	protected float size;
 	
 	public GText() {
 		
@@ -46,12 +48,14 @@ public class GText extends GObj {
 	 */
 	@Override
 	@ConfigUse({
-		@ConfigItem(option = "text-color", fallback = "#000000")
+		@ConfigItem(option = "text-color", fallback = "#000000"),
+		@ConfigItem(option = "text-size", fallback = "13")
 	})
 	protected void init() {
 		super.init();
 		this.text = "";
 		this.color = GColor.input(GConfig.singleton().get("text-color", "#000000"));
+		this.size = GConfig.singleton().getInt("text-size", 13);
 	}
 	
 	public String get() {
@@ -74,8 +78,22 @@ public class GText extends GObj {
 	public void render(Graphics g, int x, int y, int width, int height) {
 		Color save = g.getColor();
 		g.setColor(this.color);
-		g.drawString(this.text, x + TextRendering.getMiddleWidthText(g, this.text, width), y + TextRendering.getMiddleHeightText(g, height));
+		TextRendering.setFontSize(g, this.size).drawString(this.text, x + TextRendering.getMiddleWidthText(g, this.text, width), y + TextRendering.getMiddleHeightText(g, height));
 		g.setColor(save);
+	}
+	
+	public GText color(Color color) {
+		this.color = color;
+		return this;
+	}
+	
+	public Color color() {
+		return this.color;
+	}
+	
+	public GText size(float size) {
+		this.size = size;
+		return this;
 	}
 	
 }

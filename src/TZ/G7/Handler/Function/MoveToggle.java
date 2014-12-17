@@ -28,7 +28,7 @@ public abstract class MoveToggle extends ComponentToggle {
 	 */
 	@Override
 	public boolean inActive(GInput input) {
-		return input.isIntern(this.x, this.y, this.w, this.h);
+		return input.isIntern(this.x, this.y, this.w, this.h).isTrue();
 	}
 
 	/* 

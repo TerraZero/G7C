@@ -3,6 +3,8 @@ package TZ.G7.Game.State;
 import java.awt.Color;
 import java.awt.Graphics;
 
+import javax.swing.JOptionPane;
+
 import TZ.G7.Component.GButton;
 import TZ.G7.Component.I.GComp;
 
@@ -42,10 +44,20 @@ public class MenuState extends GState {
 	protected void init() {
 		super.init();
 		this.state = "";
-		GComp c = new GButton();
+		GComp c = new GButton() {
+			
+			/* 
+			 * @see TZ.G7.Component.GButton#clicked()
+			 */
+			@Override
+			public void clicked() {
+				JOptionPane.showMessageDialog(null, "Clicked");
+			}
+			
+		};
 		c.text("button");
 		this.add(c);
-		c.bounds(5, 5, 200, 200);
+		c.bounds(200, 200, 200, 80);
 	}
 	
 	/* 
