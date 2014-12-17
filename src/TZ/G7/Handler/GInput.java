@@ -114,14 +114,18 @@ public class GInput extends GObj {
 		return e.getX() > x && e.getX() < x + w && e.getY() > y && e.getY() < y + h;
 	}
 	
-	public boolean isIntern(int x, int y, int w, int h) {
+	public IntReply isIntern(int x, int y, int w, int h) {
+		int reply = IntReply.IS_NULL;
 		for (MouseEvent e : this.mouse) {
-			if (e.getID() == MouseEvent.MOUSE_MOVED && this.isMouseEvent(e, x, y, w, h)) return true; 
+			if (e.getID() == MouseEvent.MOUSE_MOVED) {
+				reply = IntReply.IS_FALSE;
+				if (this.isMouseEvent(e, x, y, w, h)) return new IntReply(IntReply.IS_TRUE); 
+			}
 		}
-		return false;
+		return new IntReply(reply);
 	}
 	
-	public boolean isIntern(GComponent c) {
+	public IntReply isIntern(GComponent c) {
 		return this.isIntern(c.x(), c.y(), c.width(), c.height());
 	}
 	

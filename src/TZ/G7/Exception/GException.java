@@ -1,5 +1,8 @@
 package TZ.G7.Exception;
 
+import TZ.G7.Annot.ConfigItem;
+import TZ.G7.Annot.ConfigUse;
+import TZ.G7.Annot.ConfigDefinition;
 import TZ.G7.Config.GConfig;
 
 /**
@@ -12,6 +15,9 @@ import TZ.G7.Config.GConfig;
  * @identifier TZ.G7.Exception
  *
  */
+@ConfigDefinition({
+	@ConfigItem(option = "exception-message", values = {"user", "debug", "dev"})
+})
 public class GException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;
@@ -35,8 +41,14 @@ public class GException extends RuntimeException {
 	 * @see java.lang.Throwable#toString()
 	 */
 	@Override
+	@ConfigUse({
+		@ConfigItem(option = "exception-message", fallback = "user")
+	})
 	public String toString() {
-		if (GConfig.singleton().get("exception", "debug").equals("user")) {
+		String config = GConfig.singleton().get("exception-message", "user");
+		if (config.equals("dev")) {
+			return "[debug] " + this.debug + " [message] " + this.message;
+		} else if (config.equals("debug")) {
 			return this.debug;
 		} else {
 			return this.message;

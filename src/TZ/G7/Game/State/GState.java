@@ -3,7 +3,6 @@ package TZ.G7.Game.State;
 import java.awt.Graphics;
 
 import TZ.G7.Component.GComponent;
-import TZ.G7.Handler.GInput;
 
 /**
  * 
@@ -35,15 +34,8 @@ public class GState extends GComponent {
 	}
 
 	public void render(Graphics g, int width, int height) {
-		
-	}
-	
-	public void update(float delta) {
-		
-	}
-	
-	public void event(GInput input) {
-		
+		this.bounds(0, 0, width, height);
+		this.render(g);
 	}
 	
 	public boolean isTransparentUpdate() {

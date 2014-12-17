@@ -1,8 +1,10 @@
 package TZ.G7.Game.State;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
-import TZ.G7.Handler.GInput;
+import TZ.G7.Component.GButton;
+import TZ.G7.Component.I.GComp;
 
 /**
  * 
@@ -40,40 +42,20 @@ public class MenuState extends GState {
 	protected void init() {
 		super.init();
 		this.state = "";
-	}
-
-	/* 
-	 * @see TZ.G7.Game.State.GState#render(java.awt.Graphics, int, int)
-	 */
-	@Override
-	public void render(Graphics g, int width, int height) {
-		super.render(g, width, height);
-		this.bounds(0, 0, width, height);
-		this.render(g);
+		GComp c = new GButton();
+		c.text("button");
+		this.add(c);
+		c.bounds(5, 5, 200, 200);
 	}
 	
 	/* 
-	 * @see TZ.G7.Component.GComponent#render(java.awt.Graphics)
+	 * @see TZ.G7.Component.GComponent#renderComponent(java.awt.Graphics)
 	 */
 	@Override
-	public void render(Graphics g) {
-		super.render(g);
-	}
-	
-	/* 
-	 * @see TZ.G7.Game.State.GState#update(float)
-	 */
-	@Override
-	public void update(float delta) {
-		super.update(delta);
-	}
-	
-	/* 
-	 * @see TZ.G7.Game.State.GState#event(TZ.G7.Handler.GInput)
-	 */
-	@Override
-	public void event(GInput input) {
-		super.event(input);
+	public void renderComponent(Graphics g) {
+		super.renderComponent(g);
+		g.setColor(Color.RED);
+		g.fillRect(0, 0, this.width, this.height);
 	}
 	
 }

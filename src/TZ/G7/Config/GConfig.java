@@ -31,6 +31,7 @@ public class GConfig extends GObj {
 	@Override
 	protected void init() {
 		this.configs = new HashMap<String, String>();
+		this.set("exception-message", "dev");
 	}
 	
 	public void initSettings() {
