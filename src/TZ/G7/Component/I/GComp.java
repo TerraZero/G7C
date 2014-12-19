@@ -23,7 +23,11 @@ public interface GComp {
 	
 	public GComp size(int width, int height);
 	
+	public GComp setSize(int width, int height);
+	
 	public GComp location(int x, int y);
+	
+	public GComp setLocation(int x, int y);
 	
 	public int width();
 	
@@ -37,7 +41,7 @@ public interface GComp {
 	
 	public void eventComponent(GInput input);
 	
-	public void renderComponent(Graphics g);
+	public void renderComponent(Graphics g, int parentWidth, int parentHeight);
 	
 	public List<GComp> getComponents();
 	
@@ -61,36 +65,72 @@ public interface GComp {
 		return this.size(width, this.height());
 	}
 	
+	public default GComp setWidth(int width) {
+		return this.setSize(width, this.height());
+	}
+	
 	public default GComp height(int height) {
 		return this.size(this.width(), height);
+	}
+	
+	public default GComp setHeight(int height) {
+		return this.setSize(this.width(), height);
 	}
 	
 	public default GComp x(int x) {
 		return this.location(x, this.y());
 	}
 	
+	public default GComp setX(int x) {
+		return this.setLocation(x, this.y());
+	}
+	
 	public default GComp y(int y) {
 		return this.location(this.x(), y);
+	}
+	
+	public default GComp setY(int y) {
+		return this.setLocation(this.x(), y);
 	}
 	
 	public default GComp size(Dimension size) {
 		return this.size(size.width, size.height);
 	}
 	
+	public default GComp setSize(Dimension size) {
+		return this.setSize(size.width, size.height);
+	}
+	
 	public default GComp location(Point p) {
 		return this.location(p.x, p.y);
+	}
+	
+	public default GComp setLocation(Point p) {
+		return this.setLocation(p.x, p.y);
 	}
 	
 	public default GComp bounds(int x, int y, int width, int height) {
 		return this.location(x, y).size(width, height);
 	}
 	
+	public default GComp setBounds(int x, int y, int width, int height) {
+		return this.setLocation(x, y).setSize(width, height);
+	}
+	
 	public default GComp bounds(Point p, Dimension size) {
 		return this.location(p.x, p.y).size(size.width, size.height);
 	}
 	
+	public default GComp setBounds(Point p, Dimension size) {
+		return this.setLocation(p.x, p.y).setSize(size.width, size.height);
+	}
+	
 	public default GComp bounds(Rectangle bounds) {
 		return this.location(bounds.x, bounds.y).size(bounds.width, bounds.height);
+	}
+	
+	public default GComp setBounds(Rectangle bounds) {
+		return this.setLocation(bounds.x, bounds.y).setSize(bounds.width, bounds.height);
 	}
 	
 	public default Dimension size() {
@@ -105,23 +145,13 @@ public interface GComp {
 		return new Rectangle(this.x(), this.y(), this.width(), this.height());
 	}
 	
-	public default void render(Graphics g) {
-		this.renderComponent(g);
-		this.renderContainer(g);
+	public default void render(Graphics g, int parentWidth, int parentHeight) {
+		this.renderComponent(g, parentWidth, parentHeight);
+		this.renderContainer(g, parentWidth, parentHeight);
 	}
 	
-	public default void renderContainer(Graphics g) {
-		this.getComponents().forEach((c) -> c.render(g.create(c.x(), c.y(), c.width(), c.height())));
-	}
-	
-	public default void resize(int parentWidth, int parentHeight) {
-		this.resizeComponents(parentWidth, parentHeight);
-	}
-	
-	public default void resizeComponents(int parentWidth, int parentHeight) {
-		for (GComp c : this.getComponents()) {
-			c.resize(this.width(), this.height());
-		}
+	public default void renderContainer(Graphics g, int parentWidth, int parentHeight) {
+		this.getComponents().forEach((c) -> c.render(g.create(c.x(), c.y(), c.width(), c.height()), parentWidth, parentHeight));
 	}
 	
 	public default void event(GInput input) {

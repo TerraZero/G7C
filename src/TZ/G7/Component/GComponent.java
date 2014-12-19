@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import TZ.G7.GObj;
+import TZ.G7.Animation.GTransform;
 import TZ.G7.Component.I.GComp;
 import TZ.G7.Data.GText;
 import TZ.G7.Handler.GInput;
@@ -23,10 +24,10 @@ public class GComponent extends GObj implements GComp {
 	
 	protected String component;
 	
-	protected int x;
-	protected int y;
-	protected int width;
-	protected int height;
+	protected GTransform x;
+	protected GTransform y;
+	protected GTransform width;
+	protected GTransform height;
 	
 	protected List<GComp> components;
 	
@@ -47,10 +48,10 @@ public class GComponent extends GObj implements GComp {
 	protected void init() {
 		super.init();
 		this.component = "Component";
-		this.x = -1;
-		this.y = -1;
-		this.width = -1;
-		this.height = -1;
+		this.x = new GTransform();
+		this.y = new GTransform();
+		this.width = new GTransform();
+		this.height = new GTransform();
 		this.text = new GText();
 		this.components = new ArrayList<GComp>();
 	}
@@ -68,9 +69,8 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public GComp size(int width, int height) {
-		this.width = width;
-		this.height = height;
-		this.resizeComponents(width, height);
+		this.width.set(width);
+		this.height.set(height);
 		return this;
 	}
 
@@ -79,8 +79,28 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public GComp location(int x, int y) {
-		this.x = x;
-		this.y = y;
+		this.x.set(x);
+		this.y.set(y);
+		return this;
+	}
+	
+	/* 
+	 * @see TZ.G7.Component.I.GComp#setSize(int, int)
+	 */
+	@Override
+	public GComp setSize(int width, int height) {
+		this.width.value(width);
+		this.height.value(height);
+		return this;
+	}
+
+	/* 
+	 * @see TZ.G7.Component.I.GComp#setLocation(int, int)
+	 */
+	@Override
+	public GComp setLocation(int x, int y) {
+		this.x.value(x);
+		this.y.value(y);
 		return this;
 	}
 
@@ -89,7 +109,7 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public int width() {
-		return this.width;
+		return this.width.getInt();
 	}
 
 	/* 
@@ -97,7 +117,7 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public int height() {
-		return this.height;
+		return this.height.getInt();
 	}
 
 	/* 
@@ -105,7 +125,7 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public int x() {
-		return this.x;
+		return this.x.getInt();
 	}
 
 	/* 
@@ -113,7 +133,7 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public int y() {
-		return this.y;
+		return this.y.getInt();
 	}
 	
 	/* 
@@ -155,7 +175,10 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public void updateComponent(float delta) {
-		
+		this.width.update(delta);
+		this.height.update(delta);
+		this.x.update(delta);
+		this.y.update(delta);
 	}
 
 	/* 
@@ -170,7 +193,7 @@ public class GComponent extends GObj implements GComp {
 	 * @see TZ.G7.Component.I.GComp#renderComponent(java.awt.Graphics)
 	 */
 	@Override
-	public void renderComponent(Graphics g) {
+	public void renderComponent(Graphics g, int parentWidth, int parentHeight) {
 		
 	}
 

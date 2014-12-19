@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import TZ.G7.GObj;
+import TZ.G7.Annot.ConfigAnnot;
 import TZ.G7.Annot.ConfigItem;
 import TZ.G7.Annot.ConfigUse;
 import TZ.G7.Annot.ConfigDefinition;
@@ -21,8 +22,8 @@ import TZ.G7.Rendering.TextRendering;
  *
  */
 @ConfigDefinition({
-	@ConfigItem(option = "text-color", data = "color", description = "The default text color."),
-	@ConfigItem(option = "text-size", data = "size", datatyp = "int", description = "The default font size.")
+	@ConfigItem(option = "text-color", data = ConfigAnnot.DATA_COLOR, description = "The default text color.", category = "Text"),
+	@ConfigItem(option = "text-size", data = ConfigAnnot.DATA_SIZE, datatyp = ConfigAnnot.TYPE_INT, description = "The default font size.", category = "Text")
 })
 public class GText extends GObj {
 

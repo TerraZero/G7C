@@ -16,7 +16,7 @@ import TZ.G7.Config.GConfig;
  *
  */
 @ConfigDefinition({
-	@ConfigItem(option = "exception-message", values = {"user", "debug", "dev"}, description = "The exception message option.")
+	@ConfigItem(option = "exception-message", values = {"user", "debug", "dev"}, description = "The exception message option.", category = "Exception")
 })
 public class GException extends RuntimeException {
 

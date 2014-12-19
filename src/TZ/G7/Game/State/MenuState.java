@@ -3,11 +3,8 @@ package TZ.G7.Game.State;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import javax.swing.JOptionPane;
-
 import TZ.G7.Component.GButton;
 import TZ.G7.Component.I.GComp;
-import TZ.G7.Loader.FLoader;
 
 /**
  * 
@@ -49,21 +46,18 @@ public class MenuState extends GState {
 		this.state = "";
 		c = new GButton();
 		this.add(c);
-		c.bounds(200, 200, 200, 80);
+		c.setBounds(10, 200, 200, 80);
 	}
 	
 	/* 
 	 * @see TZ.G7.Component.GComponent#renderComponent(java.awt.Graphics)
 	 */
 	@Override
-	public void renderComponent(Graphics g) {
-		super.renderComponent(g);
+	public void renderComponent(Graphics g, int parentWidth, int parentHeight) {
+		super.renderComponent(g, parentWidth, parentHeight);
 		g.setColor(Color.RED);
-		g.fillRect(0, 0, this.width, this.height);
+		g.fillRect(0, 0, this.width(), this.height());
 	}
-	
-	boolean b;
-	FLoader loader = new FLoader("~", "test-3.csv");
 	
 	/* 
 	 * @see TZ.G7.Component.GComponent#updateComponent(float)
@@ -71,19 +65,6 @@ public class MenuState extends GState {
 	@Override
 	public void updateComponent(float delta) {
 		super.updateComponent(delta);
-		if (loader.load()) {
-			if (b) {
-				c.x(c.x() - 10);
-			} else {
-				c.x(c.x() + 10);
-			}
-			if (c.x() < 200 || c.x() > 600) {
-				b = !b;
-			}
-		} else {
-			System.out.println(loader.data().size());
-		}
-		
 	}
 	
 }

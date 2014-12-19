@@ -20,7 +20,7 @@ import TZ.Strings.Strings;
  *
  */
 @ConfigDefinition({
-	@ConfigItem(option = "color-output-type", values = {"hex", "rgb", "rgba"}, description = "The default output format for color's.")
+	@ConfigItem(option = "color-output-type", values = {"hex", "rgb", "rgba"}, description = "The default output format for color's.", category = "Color")
 })
 public class GColor {
 

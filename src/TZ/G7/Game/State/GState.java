@@ -32,11 +32,6 @@ public class GState extends GComponent {
 	protected void init() {
 		super.init();
 	}
-
-	public void render(Graphics g, int width, int height) {
-		this.bounds(0, 0, width, height);
-		this.render(g);
-	}
 	
 	public boolean isTransparentUpdate() {
 		return this.transparentUpdate;
@@ -52,6 +47,11 @@ public class GState extends GComponent {
 	
 	public String name() {
 		return this.name;
+	}
+	
+	public void render(Graphics g, int parentWidth, int parentHeight) {
+		this.setBounds(0, 0, parentWidth, parentHeight);
+		super.render(g, parentWidth, parentHeight);
 	}
 	
 }
