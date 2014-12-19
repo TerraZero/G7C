@@ -25,5 +25,6 @@ public @interface ConfigItem {
 	public String data() default "list";
 	public String datatyp() default "string";
 	public String description() default ConfigAnnot.NONE;
+	public String category() default ConfigAnnot.NONE;
 	
 }

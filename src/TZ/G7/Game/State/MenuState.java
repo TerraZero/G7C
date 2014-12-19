@@ -7,6 +7,7 @@ import javax.swing.JOptionPane;
 
 import TZ.G7.Component.GButton;
 import TZ.G7.Component.I.GComp;
+import TZ.G7.Loader.FLoader;
 
 /**
  * 
@@ -37,6 +38,8 @@ public class MenuState extends GState {
 		super(MenuState.NAME);
 	}
 	
+	GComp c;
+	
 	/* 
 	 * @see TZ.G7.Game.State.GState#init()
 	 */
@@ -44,18 +47,7 @@ public class MenuState extends GState {
 	protected void init() {
 		super.init();
 		this.state = "";
-		GComp c = new GButton() {
-			
-			/* 
-			 * @see TZ.G7.Component.GButton#clicked()
-			 */
-			@Override
-			public void clicked() {
-				JOptionPane.showMessageDialog(null, "Clicked");
-			}
-			
-		};
-		c.text("button");
+		c = new GButton();
 		this.add(c);
 		c.bounds(200, 200, 200, 80);
 	}
@@ -68,6 +60,30 @@ public class MenuState extends GState {
 		super.renderComponent(g);
 		g.setColor(Color.RED);
 		g.fillRect(0, 0, this.width, this.height);
+	}
+	
+	boolean b;
+	FLoader loader = new FLoader("~", "test-3.csv");
+	
+	/* 
+	 * @see TZ.G7.Component.GComponent#updateComponent(float)
+	 */
+	@Override
+	public void updateComponent(float delta) {
+		super.updateComponent(delta);
+		if (loader.load()) {
+			if (b) {
+				c.x(c.x() - 10);
+			} else {
+				c.x(c.x() + 10);
+			}
+			if (c.x() < 200 || c.x() > 600) {
+				b = !b;
+			}
+		} else {
+			System.out.println(loader.data().size());
+		}
+		
 	}
 	
 }

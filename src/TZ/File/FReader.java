@@ -21,12 +21,24 @@ import java.util.stream.Stream;
  *
  */
 public class FReader {
+	
+	public static void main(String[] args) {
+		FReader r = new FReader("~", "test-3.csv");
+		long filesize = r.getPath().toFile().length();
+		System.out.println(filesize);
+		long start = System.currentTimeMillis();
+		List<String> lines = r.readAll();
+		long end = System.currentTimeMillis();
+		System.out.println(start);
+		System.out.println(end - start);
+		System.out.println(end);
+	}
 
 	protected Path path;
 	protected Exception e;
 	
 	public FReader(String dir, String file) {
-		this(Paths.get(dir, file));
+		this(Paths.get(dir.replaceAll("~", System.getProperty("user.home")), file));
 	}
 	
 	public FReader(File file) {

@@ -59,6 +59,15 @@ public class GConfig extends GObj {
 		}
 	}
 	
+	public float getFloat(String name, float fallback) {
+		try {
+			String value = this.configs.get(name);
+			return (value == null ? fallback : Float.parseFloat(value));
+		} catch (NumberFormatException e) {
+			return fallback;
+		}
+	}
+	
 	public void set(String name, String value) {
 		this.configs.put(name, value);
 	}
