@@ -1,10 +1,12 @@
 package TZ.G7.Component;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 import java.util.List;
 
 import TZ.G7.GObj;
+import TZ.G7.Animation.GColorTransform;
 import TZ.G7.Animation.GTransform;
 import TZ.G7.Component.I.GComp;
 import TZ.G7.Data.GText;
@@ -33,6 +35,8 @@ public class GComponent extends GObj implements GComp {
 	
 	protected GText text;
 	
+	protected GColorTransform background;
+	
 	public GComponent() {
 		
 	}
@@ -52,6 +56,7 @@ public class GComponent extends GObj implements GComp {
 		this.y = new GTransform();
 		this.width = new GTransform();
 		this.height = new GTransform();
+		this.background = new GColorTransform();
 		this.text = new GText();
 		this.components = new ArrayList<GComp>();
 	}
@@ -103,6 +108,24 @@ public class GComponent extends GObj implements GComp {
 		this.y.value(y);
 		return this;
 	}
+	
+	/* 
+	 * @see TZ.G7.Component.I.GComp#background(java.awt.Color)
+	 */
+	@Override
+	public GComp background(Color background) {
+		this.background.set(background);
+		return this;
+	}
+
+	/* 
+	 * @see TZ.G7.Component.I.GComp#setBackground(java.awt.Color)
+	 */
+	@Override
+	public GComp setBackground(Color background) {
+		this.background.setColor(background);
+		return this;
+	}
 
 	/* 
 	 * @see TZ.G7.I.G7C#getWidth()
@@ -134,6 +157,14 @@ public class GComponent extends GObj implements GComp {
 	@Override
 	public int y() {
 		return this.y.getInt();
+	}
+	
+	/* 
+	 * @see TZ.G7.Component.I.GComp#background()
+	 */
+	@Override
+	public Color background() {
+		return this.background.get();
 	}
 	
 	/* 
@@ -179,6 +210,7 @@ public class GComponent extends GObj implements GComp {
 		this.height.update(delta);
 		this.x.update(delta);
 		this.y.update(delta);
+		this.background.update(delta);
 	}
 
 	/* 
@@ -194,7 +226,8 @@ public class GComponent extends GObj implements GComp {
 	 */
 	@Override
 	public void renderComponent(Graphics g, int parentWidth, int parentHeight) {
-		
+		g.setColor(this.background.get());
+		g.fillRect(0, 0, this.width(), this.height());
 	}
 
 	/* 

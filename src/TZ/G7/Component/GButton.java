@@ -40,8 +40,6 @@ public class GButton extends GComponent {
 	@Override
 	public void renderComponent(Graphics g, int parentWidht, int parentHeight) {
 		super.renderComponent(g, parentWidht, parentHeight);
-		g.setColor(Color.BLACK);
-		g.fillRect(0, 0, this.width(), this.height());
 		this.text.render(g, 0, 0, this.width(), this.height());
 	}
 	
@@ -66,8 +64,10 @@ public class GButton extends GComponent {
 		IntReply reply = input.isIntern(this);
 		if (reply.isTrue()) {
 			this.bounds(250, 250, 150, 150);
+			this.background(Color.GREEN);
 		} else if (reply.isFalse()) {
 			this.bounds(300, 300, 50, 50);
+			this.background(Color.BLACK);
 		}
 	}
 	

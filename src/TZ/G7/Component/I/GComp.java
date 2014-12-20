@@ -1,5 +1,6 @@
 package TZ.G7.Component.I;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -29,6 +30,10 @@ public interface GComp {
 	
 	public GComp setLocation(int x, int y);
 	
+	public GComp background(Color background);
+	
+	public GComp setBackground(Color background);
+	
 	public int width();
 	
 	public int height();
@@ -36,6 +41,8 @@ public interface GComp {
 	public int x();
 	
 	public int y();
+	
+	public Color background();
 	
 	public void updateComponent(float delta);
 	

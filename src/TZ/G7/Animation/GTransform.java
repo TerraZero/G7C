@@ -94,4 +94,12 @@ public class GTransform extends GObj {
 		}
 	}
 	
+	/* 
+	 * @see TZ.G7.GObj#toString()
+	 */
+	@Override
+	public String toString() {
+		return "[" + this.value + " -> " + this.target + " (" + this.speed + ")]";
+	}
+	
 }
