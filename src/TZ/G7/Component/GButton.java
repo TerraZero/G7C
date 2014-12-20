@@ -54,7 +54,7 @@ public class GButton extends GComponent {
 	}
 	
 	public void clicked() {
-		
+		System.out.println("hallo");
 	}
 	
 	/* 
