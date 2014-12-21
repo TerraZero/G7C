@@ -8,6 +8,7 @@ import TZ.G7.Annot.ConfigAnnot;
 import TZ.G7.Annot.ConfigItem;
 import TZ.G7.Annot.ConfigUse;
 import TZ.G7.Annot.ConfigDefinition;
+import TZ.G7.Component.I.GComp;
 import TZ.G7.Config.GConfig;
 import TZ.G7.Rendering.TextRendering;
 
@@ -74,6 +75,10 @@ public class GText extends GObj {
 	@Override
 	public String toString() {
 		return this.text;
+	}
+	
+	public void render(Graphics g, GComp c) {
+		this.render(g, 0, 0, c.width(), c.height());
 	}
 	
 	public void render(Graphics g, int x, int y, int width, int height) {

@@ -8,7 +8,10 @@ import java.util.List;
 import TZ.G7.GObj;
 import TZ.G7.Animation.GColorTransform;
 import TZ.G7.Animation.GTransform;
+import TZ.G7.Annot.ConfigItem;
+import TZ.G7.Annot.ConfigUse;
 import TZ.G7.Component.I.GComp;
+import TZ.G7.Config.GConfig;
 import TZ.G7.Data.GText;
 import TZ.G7.Handler.GInput;
 
@@ -49,13 +52,16 @@ public class GComponent extends GObj implements GComp {
 	 * @see TZ.G7.GObj#init()
 	 */
 	@Override
+	@ConfigUse({
+		@ConfigItem(option = "transform-speed", fallback = "1")
+	})
 	protected void init() {
 		super.init();
 		this.component = "Component";
 		this.x = new GTransform();
 		this.y = new GTransform();
-		this.width = new GTransform();
-		this.height = new GTransform();
+		this.width = new GTransform().speed(GConfig.singleton().getFloat("transform-speed", 1) * 2);
+		this.height = new GTransform().speed(GConfig.singleton().getFloat("transform-speed", 1) * 2);
 		this.background = new GColorTransform();
 		this.text = new GText();
 		this.components = new ArrayList<GComp>();

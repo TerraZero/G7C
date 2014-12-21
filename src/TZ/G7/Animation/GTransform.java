@@ -31,7 +31,7 @@ public class GTransform extends GObj {
 	}
 	
 	public GTransform(float value) {
-		this.value = value;
+		this.value(value);
 	}
 	
 	/* 

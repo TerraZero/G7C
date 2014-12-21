@@ -38,7 +38,7 @@ public class GColorTransform extends GObj {
 		this.red = new GTransform();
 		this.green = new GTransform();
 		this.blue = new GTransform();
-		this.alpha = new GTransform();
+		this.alpha = new GTransform(255);
 	}
 	
 	public GColorTransform set(Color color) {
@@ -105,7 +105,7 @@ public class GColorTransform extends GObj {
 	 */
 	@Override
 	public String toString() {
-		return "[red: " + this.red.toString() + ", green: " + this.green.toString() + ", blue: " + this.blue.toString() + ", alpha: " + this.alpha.toString() + "]";
+		return "[r: " + this.red.toString() + ", g: " + this.green.toString() + ", b: " + this.blue.toString() + ", a: " + this.alpha.toString() + "]";
 	}
 	
 }

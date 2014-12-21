@@ -1,10 +1,8 @@
 package TZ.G7.Component;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import TZ.G7.Handler.GInput;
-import TZ.Ints.IntReply;
 
 /**
  * 
@@ -27,11 +25,6 @@ public class GButton extends GComponent {
 	@Override
 	protected void init() {
 		super.init();
-		float t = 2;
-		this.width.speed(t);
-		this.height.speed(t);
-		this.x.speed(t / 2);
-		this.y.speed(t / 2);
 	}
 	
 	/* 
@@ -40,7 +33,7 @@ public class GButton extends GComponent {
 	@Override
 	public void renderComponent(Graphics g, int parentWidht, int parentHeight) {
 		super.renderComponent(g, parentWidht, parentHeight);
-		this.text.render(g, 0, 0, this.width(), this.height());
+		this.text.render(g, this);
 	}
 	
 	/* 
@@ -52,7 +45,7 @@ public class GButton extends GComponent {
 	}
 	
 	public void clicked() {
-		System.out.println("hallo");
+		
 	}
 	
 	/* 
@@ -61,14 +54,7 @@ public class GButton extends GComponent {
 	@Override
 	public void eventComponent(GInput input) {
 		super.eventComponent(input);
-		IntReply reply = input.isIntern(this);
-		if (reply.isTrue()) {
-			this.bounds(250, 250, 150, 150);
-			this.background(Color.GREEN);
-		} else if (reply.isFalse()) {
-			this.bounds(300, 300, 50, 50);
-			this.background(Color.BLACK);
-		}
+		
 	}
 	
 }
