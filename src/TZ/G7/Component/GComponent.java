@@ -217,6 +217,7 @@ public class GComponent extends GObj implements GComp {
 		this.x.update(delta);
 		this.y.update(delta);
 		this.background.update(delta);
+		this.text.update(delta);
 	}
 
 	/* 

@@ -5,6 +5,8 @@ import java.awt.Graphics;
 
 import TZ.G7.Component.GButton;
 import TZ.G7.Component.I.GComp;
+import TZ.G7.Handler.GInput;
+import TZ.Ints.IntReply;
 
 /**
  * 
@@ -47,6 +49,9 @@ public class MenuState extends GState {
 		c = new GButton();
 		this.add(c);
 		c.setBounds(10, 200, 200, 80);
+		this.setBackground(Color.RED);
+		c.text("test");
+		c.text().setColor(Color.RED);
 	}
 	
 	/* 
@@ -55,8 +60,6 @@ public class MenuState extends GState {
 	@Override
 	public void renderComponent(Graphics g, int parentWidth, int parentHeight) {
 		super.renderComponent(g, parentWidth, parentHeight);
-		g.setColor(Color.RED);
-		g.fillRect(0, 0, this.width(), this.height());
 	}
 	
 	/* 
@@ -65,6 +68,24 @@ public class MenuState extends GState {
 	@Override
 	public void updateComponent(float delta) {
 		super.updateComponent(delta);
+	}
+	
+	/* 
+	 * @see TZ.G7.Component.GComponent#eventComponent(TZ.G7.Handler.GInput)
+	 */
+	@Override
+	public void eventComponent(GInput input) {
+		super.eventComponent(input);
+		IntReply intern = input.isIntern(c);
+		if (intern.isTrue()) {
+			//c.background(Color.BLUE);
+			c.text().color(Color.GREEN);
+			c.text().size(30);
+		} else if (intern.isFalse()) {
+			//c.background(Color.BLACK);
+			c.text().color(Color.RED);
+			c.text().size(13);
+		}
 	}
 	
 }

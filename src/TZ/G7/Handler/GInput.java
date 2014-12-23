@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import TZ.G7.GObj;
-import TZ.G7.Component.GComponent;
+import TZ.G7.Component.I.GComp;
 import TZ.G7.Handler.Function.ToggleFunction;
 import TZ.Ints.IntReply;
 
@@ -125,7 +125,7 @@ public class GInput extends GObj {
 		return new IntReply(reply);
 	}
 	
-	public IntReply isIntern(GComponent c) {
+	public IntReply isIntern(GComp c) {
 		return this.isIntern(c.x(), c.y(), c.width(), c.height());
 	}
 	
@@ -136,7 +136,7 @@ public class GInput extends GObj {
 		return null;
 	}
 	
-	public MouseEvent intern(GComponent c) {
+	public MouseEvent intern(GComp c) {
 		return this.intern(c.x(), c.y(), c.width(), c.height());
 	}
 	
@@ -147,7 +147,7 @@ public class GInput extends GObj {
 		return false;
 	}
 	
-	public boolean isExtern(GComponent c) {
+	public boolean isExtern(GComp c) {
 		return this.isExtern(c.x(), c.y(), c.width(), c.height());
 	}
 	
@@ -158,7 +158,7 @@ public class GInput extends GObj {
 		return null;
 	}
 	
-	public MouseEvent extern(GComponent c) {
+	public MouseEvent extern(GComp c) {
 		return this.extern(c.x(), c.y(), c.width(), c.height());
 	}
 	
@@ -173,7 +173,7 @@ public class GInput extends GObj {
 		return new IntReply(reply);
 	}
 	
-	public IntReply isClick(GComponent c) {
+	public IntReply isClick(GComp c) {
 		return this.isClick(c.x(), c.y(), c.width(), c.height());
 	}
 	
@@ -184,7 +184,7 @@ public class GInput extends GObj {
 		return null;
 	}
 	
-	public MouseEvent click(GComponent c) {
+	public MouseEvent click(GComp c) {
 		return this.click(c.x(), c.y(), c.width(), c.height());
 	}
 	

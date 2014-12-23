@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import TZ.G7.GObj;
+import TZ.G7.Animation.GColorTransform;
+import TZ.G7.Animation.GTransform;
 import TZ.G7.Annot.ConfigAnnot;
 import TZ.G7.Annot.ConfigItem;
 import TZ.G7.Annot.ConfigUse;
@@ -29,8 +31,8 @@ import TZ.G7.Rendering.TextRendering;
 public class GText extends GObj {
 
 	protected String text;
-	protected Color color;
-	protected float size;
+	protected GColorTransform color;
+	protected GTransform size;
 	
 	public GText() {
 		
@@ -42,7 +44,7 @@ public class GText extends GObj {
 	
 	public GText(String text, Color color) {
 		this.text = text;
-		this.color = color;
+		
 	}
 	
 	/* 
@@ -56,8 +58,8 @@ public class GText extends GObj {
 	protected void init() {
 		super.init();
 		this.text = "";
-		this.color = GColor.input(GConfig.singleton().get("text-color", "#000000"));
-		this.size = GConfig.singleton().getInt("text-size", 13);
+		this.color = new GColorTransform(GColor.input(GConfig.singleton().get("text-color", "#000000")));
+		this.size = new GTransform(GConfig.singleton().getFloat("text-size", 13)).speed(0.2f);
 	}
 	
 	public String get() {
@@ -83,23 +85,38 @@ public class GText extends GObj {
 	
 	public void render(Graphics g, int x, int y, int width, int height) {
 		Color save = g.getColor();
-		g.setColor(this.color);
-		TextRendering.setFontSize(g, this.size).drawString(this.text, x + TextRendering.getMiddleWidthText(g, this.text, width), y + TextRendering.getMiddleHeightText(g, height));
+		g.setColor(this.color.get());
+		TextRendering.setFontSize(g, this.size.get()).drawString(this.text, x + TextRendering.getMiddleWidthText(g, this.text, width), y + TextRendering.getMiddleHeightText(g, height));
 		g.setColor(save);
 	}
 	
 	public GText color(Color color) {
-		this.color = color;
+		this.color.set(color);
 		return this;
 	}
 	
 	public Color color() {
-		return this.color;
+		return this.color.get();
 	}
 	
 	public GText size(float size) {
-		this.size = size;
+		this.size.set(size);
 		return this;
+	}
+	
+	public GText setSize(float size) {
+		this.size.value(size);
+		return this;
+	}
+	
+	public GText setColor(Color color) {
+		this.color.setColor(color);
+		return this;
+	}
+	
+	public void update(float delta) {
+		this.color.update(delta);
+		this.size.update(delta);
 	}
 	
 }
