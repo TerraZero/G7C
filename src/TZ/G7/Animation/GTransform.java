@@ -24,7 +24,13 @@ public class GTransform extends GObj {
 
 	protected float value;
 	protected float target;
+	
 	protected float speed;
+	/**
+	 * true  : this.target < this.value
+	 * false : this.target > this.value
+	 */
+	protected boolean direction;
 	
 	public GTransform() {
 		
@@ -48,6 +54,7 @@ public class GTransform extends GObj {
 	
 	public GTransform speed(float speed) {
 		this.speed = speed;
+		if (this.speed > 0) this.direction = false;
 		return this;
 	}
 	
@@ -59,7 +66,14 @@ public class GTransform extends GObj {
 	
 	public GTransform set(float target) {
 		this.target = target;
+		this.checkSpeed();
 		return this;
+	}
+	
+	private void checkSpeed() {
+		boolean newDirection = this.target < this.value; 
+		if (newDirection != this.direction) this.speed = -this.speed;
+		this.direction = newDirection;
 	}
 	
 	public float get() {
@@ -84,13 +98,19 @@ public class GTransform extends GObj {
 	
 	public void update(float delta) {
 		if (this.target != this.value) {
-			if (this.target > this.value) {
-				this.value += this.speed * delta;
-				if (this.value > this.target) this.value = this.target;
-			} else if (this.target < this.value) {
-				this.value -= this.speed * delta;
-				if (this.value < this.target) this.value = this.target;
+			this.value += this.speed * delta;
+			if (this.direction && this.target > this.value || !this.direction && this.target < this.value) this.value = this.target;
+			/*
+			if (this.target != this.value) {
+				if (this.target > this.value) {
+					this.value += this.speed * delta;
+					if (this.value > this.target) this.value = this.target;
+				} else if (this.target < this.value) {
+					this.value -= this.speed * delta;
+					if (this.value < this.target) this.value = this.target;
+				}
 			}
+			*/
 		}
 	}
 	
