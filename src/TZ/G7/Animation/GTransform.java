@@ -54,7 +54,7 @@ public class GTransform extends GObj {
 	
 	public GTransform speed(float speed) {
 		this.speed = speed;
-		if (this.speed > 0) this.direction = false;
+		this.direction = !(this.speed > 0);
 		return this;
 	}
 	
