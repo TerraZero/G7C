@@ -96,6 +96,10 @@ public class GTransform extends GObj {
 		return this.speed;
 	}
 	
+	public boolean isTarget() {
+		return this.target == this.value;
+	}
+	
 	public void update(float delta) {
 		if (this.target != this.value) {
 			this.value += this.speed * delta;

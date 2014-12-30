@@ -117,4 +117,12 @@ public class GText extends GObj {
 		this.size.update(delta);
 	}
 	
+	public int renderingWidth(Graphics g) {
+		return TextRendering.getTextWidth(g, g.getFont().deriveFont(this.size.get()), this.text);
+	}
+	
+	public int renderingHeight(Graphics g) {
+		return TextRendering.getLineHeight(g, g.getFont().deriveFont(this.size.get()));
+	}
+	
 }

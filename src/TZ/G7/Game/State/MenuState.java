@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import TZ.G7.Component.GButton;
+import TZ.G7.Component.GMessage;
 import TZ.G7.Component.I.GComp;
 import TZ.G7.Handler.GInput;
 import TZ.Ints.IntReply;
@@ -39,6 +40,8 @@ public class MenuState extends GState {
 	
 	GComp c;
 	
+	GMessage m;
+	
 	/* 
 	 * @see TZ.G7.Game.State.GState#init()
 	 */
@@ -52,6 +55,10 @@ public class MenuState extends GState {
 		this.setBackground(Color.BLACK);
 		c.text("test");
 		c.text().setColor(Color.RED);
+		
+		this.m = new GMessage();
+		this.m.setBounds(50, 50, 10, 80);
+		this.add(m);
 	}
 	
 	/* 
@@ -81,8 +88,10 @@ public class MenuState extends GState {
 			//c.background(Color.BLUE);
 			c.text().color(Color.GREEN);
 			c.text().size(30);
+			this.m.show();
 		} else if (intern.isFalse()) {
 			//c.background(Color.BLACK);
+			this.m.hidden();
 			c.text().color(Color.RED);
 			c.text().size(13);
 		}
