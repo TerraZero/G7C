@@ -100,17 +100,6 @@ public class GTransform extends GObj {
 		if (this.target != this.value) {
 			this.value += this.speed * delta;
 			if (this.direction && this.target > this.value || !this.direction && this.target < this.value) this.value = this.target;
-			/*
-			if (this.target != this.value) {
-				if (this.target > this.value) {
-					this.value += this.speed * delta;
-					if (this.value > this.target) this.value = this.target;
-				} else if (this.target < this.value) {
-					this.value -= this.speed * delta;
-					if (this.value < this.target) this.value = this.target;
-				}
-			}
-			*/
 		}
 	}
 	

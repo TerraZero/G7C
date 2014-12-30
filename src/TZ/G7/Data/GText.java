@@ -84,10 +84,8 @@ public class GText extends GObj {
 	}
 	
 	public void render(Graphics g, int x, int y, int width, int height) {
-		Color save = g.getColor();
 		g.setColor(this.color.get());
 		TextRendering.setFontSize(g, this.size.get()).drawString(this.text, x + TextRendering.getMiddleWidthText(g, this.text, width), y + TextRendering.getMiddleHeightText(g, height));
-		g.setColor(save);
 	}
 	
 	public GText color(Color color) {

@@ -16,7 +16,6 @@ import TZ.G7.Handler.GInput;
  */
 public class GButton extends GComponent {
 	
-	protected String state = "";
 	protected boolean clicked;
 
 	/* 
@@ -44,17 +43,17 @@ public class GButton extends GComponent {
 		super.updateComponent(delta);
 	}
 	
-	public void clicked() {
-		
-	}
-	
 	/* 
 	 * @see TZ.G7.Component.GComponent#eventComponent(TZ.G7.Handler.GInput)
 	 */
 	@Override
 	public void eventComponent(GInput input) {
 		super.eventComponent(input);
-		
+		if (input.isIntern(this).isTrue()) {
+			
+		} else if (input.isIntern(this).isFalse()) {
+			
+		}
 	}
 	
 }

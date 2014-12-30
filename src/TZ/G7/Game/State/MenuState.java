@@ -49,7 +49,7 @@ public class MenuState extends GState {
 		c = new GButton();
 		this.add(c);
 		c.setBounds(10, 200, 200, 80);
-		this.setBackground(Color.RED);
+		this.setBackground(Color.BLACK);
 		c.text("test");
 		c.text().setColor(Color.RED);
 	}
