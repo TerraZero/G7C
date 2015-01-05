@@ -23,8 +23,8 @@ import TZ.G7.Config.GConfig;
 public class GTransform extends GObj {
 
 	protected float value;
-	protected float target;
 	
+	protected float target;
 	protected float speed;
 	/**
 	 * true  : this.target < this.value
