@@ -34,14 +34,16 @@ public class GHandler extends GObj implements AWTEventListener {
 	protected GInput input;
 	
 	protected List<KeyEvent> keys;
-	protected List<MouseEvent> mouses;
-	protected MouseEvent movedCache; 
+	
+	protected MouseEvent moved;
+	protected MouseEvent pressed;
+	protected List<MouseEvent> released;
 	
 	@Override
 	protected void init() {
 		super.init();
 		this.keys = new ArrayList<KeyEvent>();
-		this.mouses = new ArrayList<MouseEvent>();
+		this.released = new ArrayList<MouseEvent>();
 		this.input = new GInput();
 		
 		Toolkit.getDefaultToolkit().addAWTEventListener(this, AWTEvent.KEY_EVENT_MASK + AWTEvent.MOUSE_EVENT_MASK + AWTEvent.MOUSE_MOTION_EVENT_MASK);
@@ -51,14 +53,9 @@ public class GHandler extends GObj implements AWTEventListener {
 		this.input.updateKeys(this.keys);
 		this.keys.clear();
 		
-		// add move event
-		if (this.movedCache != null) {
-			this.mouses.add(this.movedCache);
-			this.movedCache = null;
-		}
 		
-		this.input.updateMouse(this.mouses);
-		this.mouses.clear();
+		this.input.updateMouse(this.moved, this.pressed, this.released);
+		this.released.clear();
 	}
 	
 	public GInput getInput() {
@@ -87,12 +84,18 @@ public class GHandler extends GObj implements AWTEventListener {
 	public void addMouseEvent(AWTEvent e) {
 		MouseEvent me = (MouseEvent)e;
 		
-		// save only one mouse move event 
-		// save extra cause illegal modified exception
-		if (me.getID() == MouseEvent.MOUSE_MOVED) {
-			this.movedCache = me;
-		} else {
-			this.mouses.add(me);
+		switch (me.getID()) {
+			case MouseEvent.MOUSE_MOVED :
+				this.moved = me;
+				break;
+			case MouseEvent.MOUSE_PRESSED :
+				this.pressed = me;
+				break;
+			case MouseEvent.MOUSE_RELEASED :
+				this.released.add(me);
+				break;
+			default : 
+				break;
 		}
 	}
 	
