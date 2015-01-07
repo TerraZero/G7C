@@ -3,47 +3,68 @@ package TZ.G7.Component;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import TZ.G7.Animation.GTransform;
+import TZ.G7.Animation.GTransformControlled;
 import TZ.G7.Component.I.GComp;
-import TZ.G7.Data.GText;
-import TZ.G7.Rendering.TextRendering;
 
 /**
  * 
- * @author Terra
- * @created 30.12.2014
+ * @author terrazero
+ * @created Jan 7, 2015
  * 
- * @file GMessage.java
+ * @file GMess.java
  * @project G7C
  * @identifier TZ.G7.Component
  *
  */
 public class GMessage extends GComponent {
 	
-	public static void show(GComp parent, String text) {
+	public static GMessage show(GComp parent, String text, int x, int y) {
+		return new GMessage(parent, text, x, y).show();
 		
 	}
-	
-	private boolean rendered;
-	protected GTransform diagonal;
-	protected GTransform underline;
+
+	protected GTransformControlled diagonal;
+	protected GTransformControlled underline;
 	
 	private int twidth;
 	private int theight;
+	private boolean rendered;
 	
-	protected String state;
-
+	private int diagonalLength;
+	
+	protected GMessageState state;
+	
+	public GMessage() {
+	}
+	
+	public GMessage(String text) {
+		this.text(text);
+	}
+	
+	public GMessage(String text, int x, int y) {
+		this.text(text).setLocation(x, y);
+	}
+	
+	public GMessage(GComp parent, String text, int x, int y) {
+		this.text(text).setLocation(x, y);
+		parent.add(this);
+	}
+	
 	/* 
 	 * @see TZ.G7.Component.GComponent#init()
 	 */
 	@Override
 	protected void init() {
 		super.init();
-		this.diagonal = new GTransform().speed(0.6f);
-		this.underline = new GTransform().speed(0.6f);
+		this.diagonalLength = 30;
+		
+		this.diagonal = new GTransformControlled(this.diagonalLength).speed(0.7f);
+		this.underline = new GTransformControlled().speed(0.7f);
+		this.state = GMessageState.HIDDEN;
+		this.height(this.diagonalLength);
+		
+		// dev
 		this.background.set(Color.GREEN);
-		this.state = "hidden";
-		this.text("Hallo das ist eine message mal sehen ob sie komplett sichtbar is");
 		this.text.color(Color.GREEN);
 	}
 	
@@ -54,32 +75,30 @@ public class GMessage extends GComponent {
 	public void updateComponent(float delta) {
 		super.updateComponent(delta);
 		switch (this.state) {
-			case "show-diagonal" :
-				this.diagonal.update(delta);
-				if (this.diagonal.isTarget()) {
-					this.state = "show-underline";
+			case SHOW_DIAGONAL :
+				if (this.diagonal.updateUp(delta)) {
+					this.state = GMessageState.SHOW_UNDERLINE;
 				}
 				break;
-			case "show-underline" : 
-				this.underline.update(delta);
-				if (this.underline.isTarget()) {
-					this.state = "show";
+			case SHOW_UNDERLINE :
+				if (this.underline.updateUp(delta)) {
+					this.state = GMessageState.SHOW;
 				}
 				break;
-			case "hidden-underline" :
-				this.underline.update(delta);
-				if (this.underline.isTarget()) {
-					this.state = "hidden-diagonal";
+			case HIDDEN_UNDERLINE : 
+				if (this.underline.updateDown(delta)) {
+					this.state = GMessageState.HIDDEN_DIAGONAL;
 				}
 				break;
-			case "hidden-diagonal" :
-				this.diagonal.update(delta);
-				if (this.diagonal.isTarget()) {
-					this.state = "hidden";
+			case HIDDEN_DIAGONAL : 
+				if (this.diagonal.updateDown(delta)) {
+					this.state = GMessageState.HIDDEN;
 				}
 				break;
 			default :
+				break;
 		}
+		this.setWidth(this.diagonal.getInt() + this.underline.getInt());
 	}
 	
 	/* 
@@ -87,43 +106,81 @@ public class GMessage extends GComponent {
 	 */
 	@Override
 	public void renderComponent(Graphics g, int parentWidth, int parentHeight) {
-		if (this.state != "hidden") {
-			if (!this.rendered && this.state.startsWith("show")) {
+		if (this.state != GMessageState.HIDDEN) {
+			if (!this.rendered) {
 				this.rendered = true;
-				this.underline.set(this.text.renderingWidth(g) + 20);
-				this.twidth = this.underline.getTarget();
+				this.twidth = this.text.renderingWidth(g) + 40;
 				this.theight = this.text.renderingHeight(g);
-				this.setWidth(this.diagonal.getTarget() + this.underline.getTarget());
+				this.underline.target(twidth);
+				this.setHeight(this.diagonalLength + this.theight);
+				this.setY(this.y() - this.height());
 			}
+			
 			g.setColor(this.background.get());
 			g.drawLine(0, this.height(), this.diagonal.getInt(), this.height() - this.diagonal.getInt());
 			g.drawLine(this.diagonal.getInt(), this.height() - this.diagonal.getInt(), this.diagonal.getInt() + this.underline.getInt(), this.height() - this.diagonal.getInt());
-			if (this.state == "show") {
-				this.text.renderingHeight(g);
-				this.text.render(g, this.diagonal.getInt() + 20, this.height() - this.diagonal.getInt() - this.theight, this.twidth - 20, this.theight);
+			if (this.state == GMessageState.SHOW) {
+				this.text.render(g, this.diagonal.getInt() + 20, this.height() - this.diagonal.getInt() - this.theight, this.twidth - 40, this.theight);
 			}
 		}
 	}
 	
-	public void show() {
-		this.state = "show-diagonal";
-		this.diagonal.set(50);
-		this.underline.set(this.twidth);
+	public GMessage show() {
+		switch (this.state) {
+			case HIDDEN :
+			case HIDDEN_DIAGONAL : 
+				this.state = GMessageState.SHOW_DIAGONAL;
+				break;
+			case HIDDEN_UNDERLINE :
+				this.state = GMessageState.SHOW_UNDERLINE;
+				break;
+			default :
+				break;
+		}
+		return this;
 	}
 	
-	public void hidden() {
-		this.state = "hidden-underline";
-		this.underline.set(0);
-		this.diagonal.set(0);
+	public GMessage hidden() {
+		switch (this.state) {
+			case SHOW :
+			case SHOW_UNDERLINE : 
+				this.state = GMessageState.HIDDEN_UNDERLINE;
+				break;
+			case SHOW_DIAGONAL :
+				this.state = GMessageState.HIDDEN_DIAGONAL;
+				break;
+			default : 
+				break;
+		}
+		return this;
 	}
 	
-	/* 
-	 * @see TZ.G7.Component.GComponent#text(TZ.G7.Data.GText)
-	 */
-	@Override
-	public GComp text(GText text) {
-		this.rendered = false;
-		return super.text(text);
+	public boolean isShow() {
+		return this.state == GMessageState.SHOW;
 	}
+	
+	public boolean isHidden() {
+		return this.state == GMessageState.HIDDEN;
+	}
+	
+	public boolean isInAnimation() {
+		return this.state != GMessageState.HIDDEN && this.state == GMessageState.SHOW;
+	}
+	
+	public GMessageState getState() {
+		return this.state;
+	}
+	
+}
+
+enum GMessageState {
+
+	SHOW,
+	HIDDEN,
+	
+	SHOW_DIAGONAL,
+	SHOW_UNDERLINE,
+	HIDDEN_UNDERLINE,
+	HIDDEN_DIAGONAL
 	
 }

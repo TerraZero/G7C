@@ -20,7 +20,7 @@ import TZ.Ints.IntReply;
  * @identifier TZ.G7.Handler
  *
  */
-public class GInput extends GObj {
+public class GInputSave extends GObj {
 	 
 	protected List<KeyEvent> keys;
 	protected List<MouseEvent> mouse;
@@ -55,7 +55,7 @@ public class GInput extends GObj {
 	}
 	
 	// toggle
-	
+	/*
 	public void toggle(ToggleFunction function) {
 		if (function.strickt()) {
 			if (function.inActive(this)) {
@@ -72,6 +72,7 @@ public class GInput extends GObj {
 			}
 		}
 	}
+	*/
 	
 	// key
 	

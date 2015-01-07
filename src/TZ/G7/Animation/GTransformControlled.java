@@ -13,14 +13,18 @@ import TZ.G7.Config.GConfig;
  * @identifier TZ.G7.Animation
  *
  */
-public class GBounceTransform extends GObj {
+public class GTransformControlled extends GObj {
 
 	protected float target;
 	protected float speed;
 	
 	protected float value;
 	
-	public GBounceTransform(float target) {
+	public GTransformControlled() {
+		
+	}
+	
+	public GTransformControlled(float target) {
 		this.target = target;
 	}
 	
@@ -30,15 +34,15 @@ public class GBounceTransform extends GObj {
 	@Override
 	protected void init() {
 		super.init();
-		this.speed = GConfig.singleton().getFloat("bounce-transform-speed", 1);
+		this.speed = GConfig.singleton().getFloat("controlled-transform-speed", 1);
 	}
 	
-	public GBounceTransform speed(float speed) {
+	public GTransformControlled speed(float speed) {
 		this.speed = speed;
 		return this;
 	}
 	
-	public GBounceTransform target(float target) {
+	public GTransformControlled target(float target) {
 		this.target = target;
 		return this;
 	}
@@ -55,6 +59,14 @@ public class GBounceTransform extends GObj {
 		return (int)this.value;
 	}
 	
+	public float target() {
+		return this.target;
+	}
+	
+	public int getTarget() {
+		return (int)this.target;
+	}
+	
 	public boolean isUp() {
 		return this.value == 0;
 	}
@@ -63,24 +75,26 @@ public class GBounceTransform extends GObj {
 		return this.value == this.target;
 	}
 	
-	public void updateUp(float delta) {
+	public boolean updateUp(float delta) {
 		this.value += this.speed * delta;
-		this.checkAction(false);
+		return this.checkAction(false);
 	}
 	
-	public void updateDown(float delta) {
+	public boolean updateDown(float delta) {
 		this.value -= this.speed * delta;
-		this.checkAction(true);
+		return this.checkAction(true);
 	}
 	
-	private void checkAction(boolean direction) {
+	private boolean checkAction(boolean direction) {
 		if (direction && 0 > this.value || !direction && this.target < this.value) {
 			if (direction) {
 				this.value = 0;
 			} else {
 				this.value = this.target;
 			}
+			return true;
 		}
+		return false;
 	}
 	
 	@Override

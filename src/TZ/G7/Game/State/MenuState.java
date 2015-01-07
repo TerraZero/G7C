@@ -7,6 +7,7 @@ import TZ.G7.Component.GButton;
 import TZ.G7.Component.GMessage;
 import TZ.G7.Component.I.GComp;
 import TZ.G7.Handler.GInput;
+import TZ.G7.Remove.GMessageOld;
 import TZ.Ints.IntReply;
 
 /**
@@ -55,10 +56,7 @@ public class MenuState extends GState {
 		this.setBackground(Color.BLACK);
 		c.text("test");
 		c.text().setColor(Color.RED);
-		
-		this.m = new GMessage();
-		this.m.setBounds(50, 50, 10, 80);
-		this.add(m);
+		c.setBackground(Color.GREEN);
 	}
 	
 	/* 
@@ -83,17 +81,22 @@ public class MenuState extends GState {
 	@Override
 	public void eventComponent(GInput input) {
 		super.eventComponent(input);
-		IntReply intern = input.isIntern(c);
-		if (intern.isTrue()) {
+		IntReply hover = input.isHover(c);
+		if (hover.isTrue()) {
 			//c.background(Color.BLUE);
 			c.text().color(Color.GREEN);
 			c.text().size(30);
-			this.m.show();
-		} else if (intern.isFalse()) {
-			//c.background(Color.BLACK);
-			this.m.hidden();
+			if (m == null) {
+				this.m = GMessage.show(this, "Hier Klicken", c.x() + c.width(), c.y());
+			} else {
+				m.show();
+			}
+		} else if (hover.isFalse()) {
 			c.text().color(Color.RED);
 			c.text().size(13);
+			if (m != null) {
+				m.hidden();
+			}
 		}
 	}
 	

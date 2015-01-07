@@ -57,6 +57,14 @@ public class IntReply {
 		
 	}
 	
+	public IntReply(boolean reply) {
+		if (reply) {
+			this.reply = IntReply.IS_TRUE;
+		} else {
+			this.reply = IntReply.IS_FALSE;
+		}
+	}
+	
 	public IntReply(int reply) {
 		this.reply = reply;
 	}
