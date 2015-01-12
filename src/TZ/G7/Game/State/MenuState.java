@@ -6,6 +6,9 @@ import java.awt.Graphics;
 import TZ.G7.Component.GButton;
 import TZ.G7.Component.GMessage;
 import TZ.G7.Component.I.GComp;
+import TZ.G7.Events.E.StdEvent;
+import TZ.G7.Events.E.StdListener;
+import TZ.G7.Game.GStates;
 import TZ.G7.Handler.GInput;
 import TZ.G7.Remove.GMessageOld;
 import TZ.Ints.IntReply;
@@ -33,15 +36,14 @@ public class MenuState extends GState {
 		return MenuState.singleton;
 	}
 	
+	protected GMessage message;
 	protected String state;
 	
 	public MenuState() {
 		super(MenuState.NAME);
 	}
 	
-	GComp c;
-	
-	GMessage m;
+	GButton[] b;
 	
 	/* 
 	 * @see TZ.G7.Game.State.GState#init()
@@ -50,13 +52,8 @@ public class MenuState extends GState {
 	protected void init() {
 		super.init();
 		this.state = "";
-		c = new GButton();
-		this.add(c);
-		c.setBounds(10, 200, 200, 80);
-		this.setBackground(Color.BLACK);
-		c.text("test");
-		c.text().setColor(Color.RED);
-		c.setBackground(Color.GREEN);
+		this.message = new GMessage();
+		this.add(this.message);
 	}
 	
 	/* 
@@ -81,23 +78,22 @@ public class MenuState extends GState {
 	@Override
 	public void eventComponent(GInput input) {
 		super.eventComponent(input);
-		IntReply hover = input.isHover(c);
-		if (hover.isTrue()) {
-			//c.background(Color.BLUE);
-			c.text().color(Color.GREEN);
-			c.text().size(30);
-			if (m == null) {
-				this.m = GMessage.show(this, "Hier Klicken", c.x() + c.width(), c.y());
-			} else {
-				m.show();
-			}
-		} else if (hover.isFalse()) {
-			c.text().color(Color.RED);
-			c.text().size(13);
-			if (m != null) {
-				m.hidden();
-			}
+		if (input.isPressed('g')) {
+			GStates.singleton().addState(GameState.NAME);
 		}
+	}
+	
+	public void message(String text, int x, int y) {
+		if (this.message.isShow()) {
+			this.message.hidden();
+		} else {
+			this.message.text(text).setLocation(x, y);
+			this.message.show();
+		}
+	}
+	
+	public void message(String text, GComp comp) {
+		this.message(text, comp.x() + comp.width(), comp.y());
 	}
 	
 }

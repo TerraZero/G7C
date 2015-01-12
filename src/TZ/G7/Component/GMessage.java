@@ -5,6 +5,7 @@ import java.awt.Graphics;
 
 import TZ.G7.Animation.GTransformControlled;
 import TZ.G7.Component.I.GComp;
+import TZ.G7.Data.GText;
 
 /**
  * 
@@ -58,14 +59,14 @@ public class GMessage extends GComponent {
 		super.init();
 		this.diagonalLength = 30;
 		
-		this.diagonal = new GTransformControlled(this.diagonalLength).speed(0.7f);
-		this.underline = new GTransformControlled().speed(0.7f);
+		this.diagonal = new GTransformControlled(this.diagonalLength).speed(0.8f);
+		this.underline = new GTransformControlled().speed(0.8f);
 		this.state = GMessageState.HIDDEN;
 		this.height(this.diagonalLength);
 		
 		// dev
-		this.background.set(Color.GREEN);
-		this.text.color(Color.GREEN);
+		this.background.set(Color.CYAN);
+		this.text.color(Color.CYAN);
 	}
 	
 	/* 
@@ -123,6 +124,20 @@ public class GMessage extends GComponent {
 				this.text.render(g, this.diagonal.getInt() + 20, this.height() - this.diagonal.getInt() - this.theight, this.twidth - 40, this.theight);
 			}
 		}
+	}
+	
+	/* 
+	 * @see TZ.G7.Component.GComponent#text(TZ.G7.Data.GText)
+	 */
+	@Override
+	public GComp text(GText text) {
+		this.rendered = false;
+		return super.text(text);
+	}
+	
+	public GComp text(String text) {
+		this.rendered = false;
+		return super.text(text);
 	}
 	
 	public GMessage show() {

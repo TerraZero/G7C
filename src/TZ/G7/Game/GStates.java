@@ -9,6 +9,7 @@ import TZ.G7.GObj;
 import TZ.G7.Canvas.GCanvas;
 import TZ.G7.Exception.GException;
 import TZ.G7.Game.State.GState;
+import TZ.G7.Game.State.GameState;
 import TZ.G7.Game.State.MenuState;
 import TZ.G7.Handler.GInput;
 
@@ -46,6 +47,7 @@ public class GStates extends GObj {
 		this.states = new ArrayList<GState>();
 		
 		this.registryState(new MenuState());
+		this.registryState(new GameState());
 		this.addState(MenuState.NAME);
 	}
 	

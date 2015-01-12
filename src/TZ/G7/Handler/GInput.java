@@ -23,6 +23,7 @@ import TZ.Ints.IntReply;
 public class GInput extends GObj {
 	 
 	protected List<KeyEvent> keys;
+	protected List<KeyEvent> keyPressed;
 	
 	protected MouseEvent moved;
 	protected MouseEvent oldmoved;
@@ -37,12 +38,26 @@ public class GInput extends GObj {
 	protected void init() {
 		super.init();
 		this.keys = new ArrayList<KeyEvent>();
+		this.keyPressed = new ArrayList<KeyEvent>();
 		this.released = new ArrayList<MouseEvent>();
 	}
 	
 	public void updateKeys(List<KeyEvent> en) {
 		this.keys.clear();	
 		this.keys.addAll(en);
+		
+		for (KeyEvent e : this.keys) {
+			if (e.getID() == KeyEvent.KEY_PRESSED) this.keyPressed.add(e);
+			if (e.getID() == KeyEvent.KEY_RELEASED) this.removePressed(e);
+		}
+	}
+	
+	public void removePressed(KeyEvent e) {
+		List<KeyEvent> tl = new ArrayList<KeyEvent>();
+		for (KeyEvent ke : this.keyPressed) {
+			if (ke.getKeyCode() == e.getKeyCode()) tl.add(ke);
+		}
+		this.keyPressed.removeAll(tl);
 	}
 	
 	public void updateMouse(MouseEvent moved, MouseEvent pressed, List<MouseEvent> released) {
@@ -94,8 +109,8 @@ public class GInput extends GObj {
 	// key
 	
 	public boolean isPressed(char pressed) {
-		for (KeyEvent e : this.keys) {
-			if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyChar() == pressed) return true;
+		for (KeyEvent e : this.keyPressed) {
+			if (e.getKeyChar() == pressed) return true;
 		}
 		return false;
 	}

@@ -36,7 +36,7 @@ public abstract class MoveToggle extends ComponentToggle {
 	 */
 	@Override
 	public boolean inDeactive(GInput input) {
-		return input.isExtern(this.x, this.y, this.w, this.h);
+		return input.isExtern(this.x, this.y, this.w, this.h).isTrue();
 	}
 
 }

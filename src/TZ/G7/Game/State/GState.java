@@ -3,6 +3,7 @@ package TZ.G7.Game.State;
 import java.awt.Graphics;
 
 import TZ.G7.Component.GComponent;
+import TZ.G7.Component.I.GComp;
 
 /**
  * 
@@ -20,6 +21,8 @@ public class GState extends GComponent {
 	protected boolean transparentRender;
 	protected boolean transparentEvent;
 	protected String name;
+	protected int scrollX;
+	protected int scrollY;
 	
 	public GState(String name) {
 		this.name = name;
@@ -52,6 +55,21 @@ public class GState extends GComponent {
 	public void render(Graphics g, int parentWidth, int parentHeight) {
 		this.setBounds(0, 0, parentWidth, parentHeight);
 		super.render(g, parentWidth, parentHeight);
+	}
+	
+	public void renderContainer(Graphics g, int parentWidth, int parentHeight) {
+		this.getComponents().forEach((c) -> {
+			if (this.isRenderComponent(c, parentWidth, parentHeight)) {
+				c.render(g.create(c.x() - this.scrollX, c.y() - this.scrollY, c.width(), c.height()), parentWidth, parentHeight);
+			}
+		});
+	}
+	
+	public boolean isRenderComponent(GComp c, int width, int height) {
+		return c.x() > this.scrollX && c.x() < width + this.scrollX && c.y() > this.scrollY && c.y() < height + this.scrollY
+		 || c.x() + c.width() > this.scrollX && c.x() + c.width() < width + this.scrollX && c.y() > this.scrollY && c.y() < height + this.scrollY
+		 || c.x() > this.scrollX && c.x() < width + this.scrollX && c.y() + c.height() > this.scrollY && c.y() + c.height() < height + this.scrollY
+		 || c.x() + c.width() > this.scrollX && c.x() + c.width() < width + this.scrollX && c.y() + c.height() > this.scrollY && c.y() + c.height() < height + this.scrollY;
 	}
 	
 }

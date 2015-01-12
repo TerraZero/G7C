@@ -2,6 +2,9 @@ package TZ.G7.Component;
 
 import java.awt.Graphics;
 
+import TZ.G7.Events.E.StdEvent;
+import TZ.G7.Events.E.StdHandler;
+import TZ.G7.Events.E.StdListener;
 import TZ.G7.Handler.GInput;
 
 /**
@@ -16,7 +19,7 @@ import TZ.G7.Handler.GInput;
  */
 public class GButton extends GComponent {
 	
-	protected boolean clicked;
+	protected StdHandler click;
 
 	/* 
 	 * @see TZ.G7.Component.GComponent#init()
@@ -24,6 +27,7 @@ public class GButton extends GComponent {
 	@Override
 	protected void init() {
 		super.init();
+		this.click = new StdHandler();
 	}
 	
 	/* 
@@ -36,24 +40,18 @@ public class GButton extends GComponent {
 	}
 	
 	/* 
-	 * @see TZ.G7.Component.GComponent#updateComponent(float)
-	 */
-	@Override
-	public void updateComponent(float delta) {
-		super.updateComponent(delta);
-	}
-	
-	/* 
 	 * @see TZ.G7.Component.GComponent#eventComponent(TZ.G7.Handler.GInput)
 	 */
 	@Override
 	public void eventComponent(GInput input) {
 		super.eventComponent(input);
-		if (input.isIntern(this).isTrue()) {
-			
-		} else if (input.isIntern(this).isFalse()) {
-			
+		if (input.isClick(this).isTrue()) {
+			this.click.fire(new StdEvent(input, this));
 		}
+	}
+	
+	public void click(StdListener listener) {
+		this.click.add(listener);
 	}
 	
 }
