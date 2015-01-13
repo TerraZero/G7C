@@ -30,6 +30,7 @@ public class GameState extends GState {
 	protected int width;
 	protected int field;
 	protected int border;
+	
 	protected int gameborder;
 	
 	/* 
