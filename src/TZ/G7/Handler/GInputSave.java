@@ -20,16 +20,12 @@ import TZ.Ints.IntReply;
  * @identifier TZ.G7.Handler
  *
  */
-public class GInput extends GObj {
+public class GInputSave extends GObj {
 	 
 	protected List<KeyEvent> keys;
-	protected List<KeyEvent> keyPressed;
-	
-	protected MouseEvent moved;
-	protected MouseEvent oldmoved;
-	
-	protected MouseEvent pressed;
-	protected List<MouseEvent> released;
+	protected List<MouseEvent> mouse;
+	protected MouseEvent move;
+	protected MouseEvent savemove;
 	
 	/* 
 	 * @see TZ.G7.GObj#init()
@@ -38,57 +34,28 @@ public class GInput extends GObj {
 	protected void init() {
 		super.init();
 		this.keys = new ArrayList<KeyEvent>();
-		this.keyPressed = new ArrayList<KeyEvent>();
-		this.released = new ArrayList<MouseEvent>();
+		this.mouse = new ArrayList<MouseEvent>();
 	}
 	
 	public void updateKeys(List<KeyEvent> en) {
 		this.keys.clear();	
 		this.keys.addAll(en);
+	}
+	
+	public void updateMouse(List<MouseEvent> en) {
+		this.mouse.clear();
+		this.mouse.addAll(en);
 		
-		for (KeyEvent e : this.keys) {
-			if (e.getID() == KeyEvent.KEY_PRESSED) this.keyPressed.add(e);
-			if (e.getID() == KeyEvent.KEY_RELEASED) this.removePressed(e);
+		this.savemove = this.move;
+		this.move = null;
+		for (MouseEvent e : en) {
+			if (e.getID() == MouseEvent.MOUSE_MOVED) this.move = e;
 		}
-	}
-	
-	public void removePressed(KeyEvent e) {
-		List<KeyEvent> tl = new ArrayList<KeyEvent>();
-		for (KeyEvent ke : this.keyPressed) {
-			if (ke.getKeyCode() == e.getKeyCode()) tl.add(ke);
-		}
-		this.keyPressed.removeAll(tl);
-	}
-	
-	public void updateMouse(MouseEvent moved, MouseEvent pressed, List<MouseEvent> released) {
-		this.oldmoved = this.moved;
-		this.moved = moved;
-		if (this.moved == null) this.moved = this.oldmoved;
-		
-		this.pressed = pressed;
-		
-		this.released.clear();
-		this.released.addAll(released);
-	}
-	
-	public MouseEvent moved() {
-		return this.moved;
-	}
-	
-	public MouseEvent oldmoved() {
-		return this.oldmoved;
-	}
-	
-	public MouseEvent pressed() {
-		return this.pressed;
-	}
-	
-	public List<MouseEvent> released() {
-		return this.released;
+		if (this.move == null) this.move = this.savemove;
 	}
 	
 	// toggle
-	
+	/*
 	public void toggle(ToggleFunction function) {
 		if (function.strickt()) {
 			if (function.inActive(this)) {
@@ -105,12 +72,13 @@ public class GInput extends GObj {
 			}
 		}
 	}
+	*/
 	
 	// key
 	
 	public boolean isPressed(char pressed) {
-		for (KeyEvent e : this.keyPressed) {
-			if (e.getKeyChar() == pressed) return true;
+		for (KeyEvent e : this.keys) {
+			if (e.getID() == KeyEvent.KEY_PRESSED && e.getKeyChar() == pressed) return true;
 		}
 		return false;
 	}
@@ -157,29 +125,26 @@ public class GInput extends GObj {
 	}
 	
 	public IntReply isIntern(int x, int y, int w, int h) {
-		if (this.moved == null) return new IntReply(IntReply.IS_NULL);
-		return new IntReply(this.isMouseEvent(this.moved, x, y, w, h));
+		int reply = IntReply.IS_NULL;
+		for (MouseEvent e : this.mouse) {
+			if (e.getID() == MouseEvent.MOUSE_MOVED) {
+				reply = IntReply.IS_FALSE;
+				if (this.isMouseEvent(e, x, y, w, h)) return new IntReply(IntReply.IS_TRUE); 
+			}
+		}
+		return new IntReply(reply);
 	}
 	
 	public IntReply isIntern(GComp c) {
 		return this.isIntern(c.x(), c.y(), c.width(), c.height());
 	}
 	
-	public IntReply isExtern(int x, int y, int w, int h) {
-		if (this.moved == null) return new IntReply(IntReply.IS_NULL);
-		return new IntReply(!this.isMouseEvent(this.moved, x, y, w, h));
-	}
-	
-	public IntReply isExtern(GComp c) {
-		return this.isExtern(c.x(), c.y(), c.width(), c.height());
-	}
-	
 	public IntReply isHover(int x, int y, int w, int h) {
-		if (this.moved == null) return new IntReply(IntReply.IS_NULL);
-		if (this.oldmoved == null) return new IntReply(this.isMouseEvent(this.moved, x, y, w, h));
+		if (this.move == null) return new IntReply(IntReply.IS_NULL);
+		if (this.savemove == null) return new IntReply(this.isMouseEvent(this.move, x, y, w, h));
 		
-		boolean save = this.isMouseEvent(this.oldmoved, x, y, w, h);
-		boolean move = this.isMouseEvent(this.moved, x, y, w, h);
+		boolean save = this.isMouseEvent(this.savemove, x, y, w, h);
+		boolean move = this.isMouseEvent(this.move, x, y, w, h);
 		if (save != move) return new IntReply(move);
 		return new IntReply(IntReply.IS_NULL);
 	}
@@ -188,16 +153,63 @@ public class GInput extends GObj {
 		return this.isHover(c.x(), c.y(), c.width(), c.height());
 	}
 	
-	public IntReply isClick(int x, int y, int w, int h) {
-		if (this.released.size() == 0) return new IntReply(IntReply.IS_NULL);
-		for (MouseEvent e : this.released) {
-			if (this.isMouseEvent(e, x, y, w, h)) return new IntReply(IntReply.IS_TRUE);
+	public MouseEvent intern(int x, int y, int w, int h) {
+		for (MouseEvent e : this.mouse) {
+			if (e.getID() == MouseEvent.MOUSE_MOVED && this.isMouseEvent(e, x, y, w, h)) return e; 
 		}
-		return new IntReply(IntReply.IS_FALSE);
+		return null;
+	}
+	
+	public MouseEvent intern(GComp c) {
+		return this.intern(c.x(), c.y(), c.width(), c.height());
+	}
+	
+	public boolean isExtern(int x, int y, int w, int h) {
+		for (MouseEvent e : this.mouse) {
+			if (e.getID() == MouseEvent.MOUSE_MOVED && !this.isMouseEvent(e, x, y, w, h)) return true; 
+		}
+		return false;
+	}
+	
+	public boolean isExtern(GComp c) {
+		return this.isExtern(c.x(), c.y(), c.width(), c.height());
+	}
+	
+	public MouseEvent extern(int x, int y, int w, int h) {
+		for (MouseEvent e : this.mouse) {
+			if (e.getID() == MouseEvent.MOUSE_MOVED && !this.isMouseEvent(e, x, y, w, h)) return e; 
+		}
+		return null;
+	}
+	
+	public MouseEvent extern(GComp c) {
+		return this.extern(c.x(), c.y(), c.width(), c.height());
+	}
+	
+	public IntReply isClick(int x, int y, int w, int h) {
+		int reply = IntReply.IS_NULL;
+		for (MouseEvent e : this.mouse) {
+			if (e.getID() == MouseEvent.MOUSE_RELEASED) {
+				reply = IntReply.IS_FALSE;
+				if (this.isMouseEvent(e, x, y, w, h)) return new IntReply(IntReply.IS_TRUE);
+			}
+		}
+		return new IntReply(reply);
 	}
 	
 	public IntReply isClick(GComp c) {
 		return this.isClick(c.x(), c.y(), c.width(), c.height());
+	}
+	
+	public MouseEvent click(int x, int y, int w, int h) {
+		for (MouseEvent e : this.mouse) {
+			if (e.getID() == MouseEvent.MOUSE_RELEASED && this.isMouseEvent(e, x, y, w, h)) return e;
+		}
+		return null;
+	}
+	
+	public MouseEvent click(GComp c) {
+		return this.click(c.x(), c.y(), c.width(), c.height());
 	}
 	
 }

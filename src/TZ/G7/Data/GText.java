@@ -93,10 +93,6 @@ public class GText extends GObj {
 		return this;
 	}
 	
-	public Color color() {
-		return this.color.get();
-	}
-	
 	public GText size(float size) {
 		this.size.set(size);
 		return this;
@@ -123,6 +119,14 @@ public class GText extends GObj {
 	
 	public int renderingHeight(Graphics g) {
 		return TextRendering.getLineHeight(g, g.getFont().deriveFont(this.size.get()));
+	}
+	
+	public GTransform size() {
+		return this.size;
+	}
+	
+	public GColorTransform color() {
+		return this.color;
 	}
 	
 }
