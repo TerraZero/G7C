@@ -54,4 +54,20 @@ public class GState extends GComponent {
 		super.render(g, parentWidth, parentHeight);
 	}
 	
+	public void stateInit() {
+		
+	}
+	
+	public void stateLoad() {
+		
+	}
+	
+	public void stateClose() {
+		
+	}
+	
+	public void statePurge() {
+		
+	}
+	
 }
