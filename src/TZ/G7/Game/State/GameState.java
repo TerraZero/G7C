@@ -40,11 +40,19 @@ public class GameState extends GState {
 	@Override
 	protected void init() {
 		super.init();
-		this.width = 30;
+		this.width = 300;
 		this.field = 200;
 		this.border = 25;
 		this.gameborder = 150;
-		
+		this.transparentEvent = false;
+	}
+	
+	/* 
+	 * @see TZ.G7.Game.State.GState#stateInit()
+	 */
+	@Override
+	public void stateInit() {
+		super.stateInit();
 		fields = new GComp[this.width * this.width];
 		for (int i = 0; i < fields.length; i++) {
 			int x = i % this.width;
@@ -58,15 +66,13 @@ public class GameState extends GState {
 	float speed = 1;
 	
 	/* 
-	 * @see TZ.G7.Component.GComponent#eventComponent(TZ.G7.Handler.GInput)
+	 * @see TZ.G7.Game.State.GState#eventState(TZ.G7.Handler.GInput)
 	 */
 	@Override
-	public void eventComponent(GInput input) {
-		super.eventComponent(input);
+	public void eventState(GInput input) {
+		super.eventState(input);
 		if (input.isPressed('e')) {
 			System.exit(0);
-		} else if (input.isPressed('g')) {
-			GStates.singleton().removeState(GameState.NAME);
 		}
 		boolean w = input.isPressed('w'); 
 		boolean s = input.isPressed('s');

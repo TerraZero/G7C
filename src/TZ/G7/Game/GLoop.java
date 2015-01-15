@@ -1,6 +1,7 @@
 package TZ.G7.Game;
 
 import TZ.G7.Handler.GHandler;
+import TZ.G7.Loader.InitLoader;
 
 /**
  * 
@@ -65,6 +66,7 @@ public class GLoop {
 	}
 	
 	public void update(float delta) {
+		InitLoader.singleton().jobFinish();
 		GStates.singleton().event(GHandler.singleton().getInput());
 		GStates.singleton().update(delta);
 	}

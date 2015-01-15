@@ -47,6 +47,11 @@ public class GTransformControlled extends GObj {
 		return this;
 	}
 	
+	public GTransformControlled value(float value) {
+		this.value = value;
+		return this;
+	}
+	
 	public float speed() {
 		return this.speed;
 	}
@@ -68,11 +73,11 @@ public class GTransformControlled extends GObj {
 	}
 	
 	public boolean isUp() {
-		return this.value == 0;
+		return this.value == this.target;
 	}
 	
 	public boolean isDown() {
-		return this.value == this.target;
+		return this.value == 0;
 	}
 	
 	public boolean updateUp(float delta) {

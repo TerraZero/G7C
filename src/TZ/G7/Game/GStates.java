@@ -11,7 +11,10 @@ import TZ.G7.Exception.GException;
 import TZ.G7.Game.State.GState;
 import TZ.G7.Game.State.GameState;
 import TZ.G7.Game.State.MenuState;
+import TZ.G7.Game.State.GState.GStateStates;
 import TZ.G7.Handler.GInput;
+import TZ.G7.Loader.InitLoader;
+import TZ.G7.Loader.InitStateJob;
 
 /**
  * 
@@ -61,6 +64,9 @@ public class GStates extends GObj {
 			throw new GException("Unknown state '" + name + "'!", "State '" + name + "' was not registry");
 		} else {
 			this.states.add(0, state);
+			if (state.stateState() == GStateStates.PRELOAD) {
+				InitLoader.singleton().addJob(new InitStateJob(state));
+			}
 		}
 	}
 	

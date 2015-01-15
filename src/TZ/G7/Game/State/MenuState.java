@@ -73,11 +73,11 @@ public class MenuState extends GState {
 	}
 	
 	/* 
-	 * @see TZ.G7.Component.GComponent#eventComponent(TZ.G7.Handler.GInput)
+	 * @see TZ.G7.Game.State.GState#eventState(TZ.G7.Handler.GInput)
 	 */
 	@Override
-	public void eventComponent(GInput input) {
-		super.eventComponent(input);
+	public void eventState(GInput input) {
+		super.eventState(input);
 		if (input.isPressed('g')) {
 			GStates.singleton().addState(GameState.NAME);
 		}

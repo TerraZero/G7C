@@ -1,9 +1,12 @@
 package TZ.G7.Game.State;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
+import TZ.G7.Animation.GTransformControlled;
 import TZ.G7.Component.GComponent;
 import TZ.G7.Component.I.GComp;
+import TZ.G7.Handler.GInput;
 
 /**
  * 
@@ -17,12 +20,25 @@ import TZ.G7.Component.I.GComp;
  */
 public class GState extends GComponent {
 	
+	public enum GStateStates {
+		
+		PRELOAD,
+		INIT,
+		NORMAL,
+		PURGE,
+		
+	}
+	
 	protected boolean transparentUpdate;
 	protected boolean transparentRender;
 	protected boolean transparentEvent;
 	protected String name;
 	protected int scrollX;
 	protected int scrollY;
+	
+	protected GTransformControlled load;
+	
+	private GStateStates state;
 	
 	public GState(String name) {
 		this.name = name;
@@ -34,6 +50,8 @@ public class GState extends GComponent {
 	@Override
 	protected void init() {
 		super.init();
+		this.state = GStateStates.PRELOAD;
+		this.load = new GTransformControlled(360);
 	}
 	
 	public boolean isTransparentUpdate() {
@@ -54,24 +72,72 @@ public class GState extends GComponent {
 	
 	public void render(Graphics g, int parentWidth, int parentHeight) {
 		this.setBounds(0, 0, parentWidth, parentHeight);
-		super.render(g, parentWidth, parentHeight);
+		if (this.state == GStateStates.INIT) {
+			this.renderLoad(g, parentWidth, parentHeight);
+		} else if (this.state == GStateStates.NORMAL) {
+			this.renderState(g, parentWidth, parentHeight);
+		}
+	}
+	
+	public void renderState(Graphics g, int widht, int height) {
+		super.render(g, widht, height);
+	}
+	
+	public void updateState(float delta) {
+		super.update(delta);
+	}
+	
+	public void eventState(GInput input) {
+		super.event(input);
+	}
+	
+	/* 
+	 * @see TZ.G7.Component.GComponent#updateComponent(float)
+	 */
+	@Override
+	public void update(float delta) {
+		if (this.state == GStateStates.INIT) {
+			this.updateLoad(delta);
+		} else if (this.state == GStateStates.NORMAL) {
+			this.updateState(delta);
+		}
+	}
+	
+	/* 
+	 * @see TZ.G7.Component.GComponent#eventComponent(TZ.G7.Handler.GInput)
+	 */
+	@Override
+	public void event(GInput input) {
+		if (this.state == GStateStates.NORMAL) {
+			this.eventState(input);
+		}
 	}
 	
 	public void stateInit() {
 		
 	}
 	
-	public void stateLoad() {
-		
-	}
-	
-	public void stateClose() {
-		
-	}
-	
 	public void statePurge() {
 		
-	}	
+	}
+	
+	public GStateStates stateState() {
+		return this.state;
+	}
+	
+	public void stateState(GStateStates states) {
+		this.state = states;
+	}
+	
+	public void renderLoad(Graphics g, int width, int height) {
+		g.setColor(Color.GRAY);
+		g.drawArc(50, 50, 40, 40, this.load.getInt(), 90);
+	}
+	
+	public void updateLoad(float delta) {
+		this.load.updateUp(delta);
+		if (this.load.isUp()) this.load.value(0);
+	}
 	
 	public void renderContainer(Graphics g, int parentWidth, int parentHeight) {
 		this.getComponents().forEach((c) -> {
