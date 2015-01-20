@@ -1,7 +1,9 @@
 package TZ.G7.Game.State;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 import TZ.G7.Animation.GTransformControlled;
 import TZ.G7.Component.GComponent;
@@ -130,8 +132,9 @@ public class GState extends GComponent {
 	}
 	
 	public void renderLoad(Graphics g, int width, int height) {
-		g.setColor(Color.GRAY);
-		g.drawArc(50, 50, 40, 40, this.load.getInt(), 90);
+		g.setColor(Color.CYAN);
+		((Graphics2D)g).setStroke(new BasicStroke(3, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		g.drawArc(width / 2 - 45, height / 2 - 42, 80, 80, this.load.getInt(), 90);
 	}
 	
 	public void updateLoad(float delta) {
