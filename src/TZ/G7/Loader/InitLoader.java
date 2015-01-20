@@ -5,6 +5,7 @@ import java.util.List;
 
 import TZ.G7.GObj;
 import TZ.G7.Exception.GException;
+import TZ.G7.Loader.Jobs.InitJob;
 
 /**
  * 

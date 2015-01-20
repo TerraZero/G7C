@@ -5,7 +5,6 @@ import java.awt.Graphics;
 
 import TZ.G7.Component.GButton;
 import TZ.G7.Component.I.GComp;
-import TZ.G7.Game.GStates;
 import TZ.G7.Handler.GInput;
 
 /**
@@ -59,6 +58,15 @@ public class GameState extends GState {
 			int y = i / this.width;
 			this.fields[i] = new GButton();
 			this.fields[i].setBounds(this.border + x * (this.border + this.field), this.border + y * (this.border + this.field), this.field, this.field).background(Color.CYAN).text(x + " - " + y);
+		}
+	}
+	
+	/* 
+	 * @see TZ.G7.Game.State.GState#stateFinish(int)
+	 */
+	@Override
+	public void stateFinish() {
+		for (int i = 0; i < this.fields.length; i++) {
 			this.add(this.fields[i]);
 		}
 	}

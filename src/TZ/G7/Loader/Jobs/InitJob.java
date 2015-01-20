@@ -1,4 +1,4 @@
-package TZ.G7.Loader;
+package TZ.G7.Loader.Jobs;
 
 /**
  * 

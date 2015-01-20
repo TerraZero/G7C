@@ -51,7 +51,7 @@ public class GState extends GComponent {
 	protected void init() {
 		super.init();
 		this.state = GStateStates.PRELOAD;
-		this.load = new GTransformControlled(360);
+		this.load = new GTransformControlled(360).speed(0.3f);
 	}
 	
 	public boolean isTransparentUpdate() {
@@ -117,6 +117,10 @@ public class GState extends GComponent {
 		
 	}
 	
+	public void stateFinish() {
+		
+	}
+	
 	public void statePurge() {
 		
 	}
@@ -130,8 +134,11 @@ public class GState extends GComponent {
 	}
 	
 	public void renderLoad(Graphics g, int width, int height) {
-		g.setColor(Color.GRAY);
-		g.drawArc(50, 50, 40, 40, this.load.getInt(), 90);
+		g.setColor(Color.CYAN);
+		for (int i = 0 ; i < 4; i++) {
+			g.drawArc((width - (30 + 10 * i)) / 2, (height - (30 + 10 * i)) / 2, (30 + 10 * i), (30 + 10 * i), (90 * i) + (i % 2 == 0 ? -this.load.getInt() : this.load.getInt()), 90 + (i % 2 == 0 ? -(30 * i) : 30 * i));
+			g.drawArc((width - (30 + 10 * i)) / 2, (height - (30 + 10 * i)) / 2, (30 + 10 * i), (30 + 10 * i), (90 * i) - 180 + (i % 2 == 0 ? -this.load.getInt() : this.load.getInt()), 90 + (i % 2 == 0 ? 30 * i : -(30 * i)));
+		}
 	}
 	
 	public void updateLoad(float delta) {

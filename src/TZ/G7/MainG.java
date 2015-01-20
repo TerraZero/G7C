@@ -18,17 +18,6 @@ import TZ.G7.Game.GLoop;
 public class MainG {
 
 	public static void main(String[] args) {
-		// fatal
-		/*
-		Toolkit.getDefaultToolkit().addAWTEventListener(new AWTEventListener() {
-
-			@Override
-			public void eventDispatched(AWTEvent e) {
-				System.out.println(e);
-			}
-			
-		}, AWTEvent.MOUSE_EVENT_MASK + AWTEvent.KEY_EVENT_MASK);
-		//*/
 		try {
 			MainG.start();
 		} catch (GException e) {

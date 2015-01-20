@@ -1,17 +1,12 @@
 package TZ.G7.Game.State;
 
-import java.awt.Color;
 import java.awt.Graphics;
 
 import TZ.G7.Component.GButton;
 import TZ.G7.Component.GMessage;
 import TZ.G7.Component.I.GComp;
-import TZ.G7.Events.E.StdEvent;
-import TZ.G7.Events.E.StdListener;
 import TZ.G7.Game.GStates;
 import TZ.G7.Handler.GInput;
-import TZ.G7.Remove.GMessageOld;
-import TZ.Ints.IntReply;
 
 /**
  * 

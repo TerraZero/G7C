@@ -14,7 +14,7 @@ import TZ.G7.Game.State.MenuState;
 import TZ.G7.Game.State.GState.GStateStates;
 import TZ.G7.Handler.GInput;
 import TZ.G7.Loader.InitLoader;
-import TZ.G7.Loader.InitStateJob;
+import TZ.G7.Loader.Jobs.InitStateJob;
 
 /**
  * 

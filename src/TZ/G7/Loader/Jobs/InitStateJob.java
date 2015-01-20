@@ -1,4 +1,4 @@
-package TZ.G7.Loader;
+package TZ.G7.Loader.Jobs;
 
 import TZ.G7.Game.State.GState;
 import TZ.G7.Game.State.GState.GStateStates;
@@ -28,6 +28,12 @@ public class InitStateJob implements InitJob {
 	public void init() {
 		state.stateState(GStateStates.INIT);
 		state.stateInit();
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/* 
@@ -35,6 +41,7 @@ public class InitStateJob implements InitJob {
 	 */
 	@Override
 	public void finished() {
+		state.stateFinish();
 		state.stateState(GStateStates.NORMAL);
 	}
 
