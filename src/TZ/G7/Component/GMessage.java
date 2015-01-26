@@ -5,7 +5,7 @@ import java.awt.Graphics;
 
 import TZ.G7.Animation.GTransformControlled;
 import TZ.G7.Component.I.GComp;
-import TZ.G7.Data.GText;
+import TZ.G7.Data.Unit.GText;
 
 /**
  * 

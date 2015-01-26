@@ -1,4 +1,4 @@
-package TZ.G7.Data;
+package TZ.G7.Graphic;
 
 import java.awt.GraphicsEnvironment;
 import java.awt.Transparency;

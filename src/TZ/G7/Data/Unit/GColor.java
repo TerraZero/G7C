@@ -1,4 +1,4 @@
-package TZ.G7.Data;
+package TZ.G7.Data.Unit;
 
 import java.awt.Color;
 

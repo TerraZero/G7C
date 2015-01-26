@@ -12,7 +12,7 @@ import TZ.G7.Annot.ConfigItem;
 import TZ.G7.Annot.ConfigUse;
 import TZ.G7.Component.I.GComp;
 import TZ.G7.Config.GConfig;
-import TZ.G7.Data.GText;
+import TZ.G7.Data.Unit.GText;
 import TZ.G7.Handler.GInput;
 
 /**

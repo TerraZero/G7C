@@ -7,7 +7,7 @@ import java.awt.Point;
 import java.awt.Rectangle;
 import java.util.List;
 
-import TZ.G7.Data.GText;
+import TZ.G7.Data.Unit.GText;
 import TZ.G7.Handler.GInput;
 
 /**
