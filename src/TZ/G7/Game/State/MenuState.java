@@ -31,9 +31,6 @@ public class MenuState extends GState {
 		return MenuState.singleton;
 	}
 	
-	protected GMessage message;
-	protected String state;
-	
 	public MenuState() {
 		super(MenuState.NAME);
 	}
@@ -46,9 +43,6 @@ public class MenuState extends GState {
 	@Override
 	protected void init() {
 		super.init();
-		this.state = "";
-		this.message = new GMessage();
-		this.add(this.message);
 	}
 	
 	/* 
@@ -76,19 +70,6 @@ public class MenuState extends GState {
 		if (input.isPressed('g')) {
 			GStates.singleton().addState(GameState.NAME);
 		}
-	}
-	
-	public void message(String text, int x, int y) {
-		if (this.message.isShow()) {
-			this.message.hidden();
-		} else {
-			this.message.text(text).setLocation(x, y);
-			this.message.show();
-		}
-	}
-	
-	public void message(String text, GComp comp) {
-		this.message(text, comp.x() + comp.width(), comp.y());
 	}
 	
 }
