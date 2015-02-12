@@ -31,18 +31,56 @@ public class Cache<type> {
 		Cache.clear("all");
 	}
 	
-	public synchronized static void clear(String name) {
-		if (name == "all") {
+	public synchronized static void clear(String... clears) {
+		if (clears[0] == "all") {
 			for (Cache<?> c : Cache.register) {
 				c.clear();
 			}
 		} else {
+			Map<String, List<String>> clearMap = Cache.clearMap(clears);
 			for (Cache<?> c : Cache.register) {
-				if (c.name == name) {
+				List<String> fields = clearMap.get(c.name);
+				boolean clear = clearMap.containsKey(c.name);
+				if (fields == null && clear) {
 					c.clear();
+				} else if (clear) {
+					c.clears(fields);
 				}
 			}
 		}
+	}
+	
+	private static Map<String, List<String>> clearMap(String... clears) {
+		Map<String, List<String>> clearMap = new HashMap<String, List<String>>();
+		String[] split = null;
+		for (String clear : clears) {
+			split = clear.split("::");
+			List<String> list = clearMap.get(split[0]);
+			if (split.length == 2) {
+				if (list == null) {
+					list = new ArrayList<String>();
+				}
+				list.add(split[1]);
+			}
+			clearMap.put(split[0], list);
+		}
+		return clearMap;
+	}
+	
+	public static List<String> getCaches() {
+		List<String> caches = new ArrayList<String>();
+		for (Cache<?> c : Cache.register) {
+			caches.add(c.name);
+		}
+		return caches;
+	}
+	
+	public static List<String> getCacheFields() {
+		List<String> cacheFields = new ArrayList<String>();
+		for (Cache<?> c : Cache.register) {
+			c.cache.forEach((f, v) -> cacheFields.add(c.name + "::" + f));
+		}
+		return cacheFields;
 	}
 
 	protected String name;
@@ -63,11 +101,18 @@ public class Cache<type> {
 	}
 	
 	public type cache(String name, type data) {
+		System.out.println("cache: " + name);
 		return this.cache.put(name, data);
 	}
 	
 	public void clear() {
 		this.cache.clear();
+	}
+	
+	public void clears(List<String> clears) {
+		for (String clear : clears) {
+			this.cache.remove(clear);
+		}
 	}
 	
 }
