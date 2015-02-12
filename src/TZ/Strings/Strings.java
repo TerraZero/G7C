@@ -16,4 +16,8 @@ public class Strings {
 		return string.replaceAll(clear, "");
 	}
 	
+	public static int countChar(String s, char c) {
+		return s.replaceAll("[^" + c + "]","").length();
+	}
+	
 }
