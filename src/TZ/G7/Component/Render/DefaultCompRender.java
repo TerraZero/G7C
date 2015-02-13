@@ -3,7 +3,7 @@ package TZ.G7.Component.Render;
 import java.awt.Graphics;
 
 import TZ.G7.Component.Data.DefaultCompData;
-import TZ.G7.Component.I.GCompRender;
+import TZ.G7.Component.Mechnic.GCompRender;
 
 /**
  * 

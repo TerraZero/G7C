@@ -10,11 +10,10 @@ import TZ.G7.Animation.GColorTransform;
 import TZ.G7.Animation.GTransform;
 import TZ.G7.Annot.ConfigItem;
 import TZ.G7.Annot.ConfigUse;
-import TZ.G7.Component.I.GCompAlt;
+import TZ.G7.Component.Mechnic.GCompAlt;
 import TZ.G7.Config.GConfig;
 import TZ.G7.Data.Unit.GText;
 import TZ.G7.Handler.GInput;
-import TZ.Mechnic.MechnicCreator;
 
 /**
  * 

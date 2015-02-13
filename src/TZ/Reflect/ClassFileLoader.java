@@ -10,8 +10,8 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import TZ.Base.Strings;
 import TZ.Cache.Cache;
-import TZ.Strings.Strings;
 
 /**
  * 

@@ -10,7 +10,7 @@ import TZ.G7.Annot.ConfigAnnot;
 import TZ.G7.Annot.ConfigItem;
 import TZ.G7.Annot.ConfigUse;
 import TZ.G7.Annot.ConfigDefinition;
-import TZ.G7.Component.I.GCompAlt;
+import TZ.G7.Component.Mechnic.GCompAlt;
 import TZ.G7.Config.GConfig;
 import TZ.G7.Rendering.TextRendering;
 

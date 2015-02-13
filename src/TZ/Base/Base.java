@@ -1,6 +1,6 @@
-package TZ.Array;
+package TZ.Base;
 
-import TZ.Array.Function.Searcher;
+import TZ.Base.Functions.Searcher;
 
 /**
  * 

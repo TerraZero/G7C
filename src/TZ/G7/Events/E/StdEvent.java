@@ -1,6 +1,6 @@
 package TZ.G7.Events.E;
 
-import TZ.G7.Component.I.GCompAlt;
+import TZ.G7.Component.Mechnic.GCompAlt;
 import TZ.G7.Events.GEEvent;
 import TZ.G7.Handler.GInput;
 

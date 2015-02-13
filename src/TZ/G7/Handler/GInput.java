@@ -5,10 +5,10 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import TZ.Base.Data.IntReply;
 import TZ.G7.GObj;
-import TZ.G7.Component.I.GCompAlt;
+import TZ.G7.Component.Mechnic.GCompAlt;
 import TZ.G7.Handler.Function.ToggleFunction;
-import TZ.Ints.IntReply;
 
 /**
  * 

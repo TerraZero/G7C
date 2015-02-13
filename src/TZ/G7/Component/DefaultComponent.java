@@ -2,7 +2,7 @@ package TZ.G7.Component;
 
 import TZ.G7.GObj;
 import TZ.G7.Component.Data.DefaultCompData;
-import TZ.G7.Component.I.GComp;
+import TZ.G7.Component.Mechnic.GComp;
 import TZ.G7.Component.Render.DefaultCompRender;
 import TZ.G7.Component.Updater.DefaultCompUpdater;
 import TZ.Mechnic.Mechnic;

@@ -1,7 +1,7 @@
 package TZ.G7.Component.Updater;
 
 import TZ.G7.Component.Data.DefaultCompData;
-import TZ.G7.Component.I.GCompUpdater;
+import TZ.G7.Component.Mechnic.GCompUpdater;
 
 /**
  * 

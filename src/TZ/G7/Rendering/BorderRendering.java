@@ -2,7 +2,7 @@ package TZ.G7.Rendering;
 
 import java.awt.Graphics;
 
-import TZ.G7.Component.I.GCompAlt;
+import TZ.G7.Component.Mechnic.GCompAlt;
 
 /**
  * 

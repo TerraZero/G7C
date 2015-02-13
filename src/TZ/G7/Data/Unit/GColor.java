@@ -2,12 +2,12 @@ package TZ.G7.Data.Unit;
 
 import java.awt.Color;
 
+import TZ.Base.Strings;
 import TZ.G7.Annot.ConfigItem;
 import TZ.G7.Annot.ConfigUse;
 import TZ.G7.Annot.ConfigDefinition;
 import TZ.G7.Config.GConfig;
 import TZ.G7.Exception.GException;
-import TZ.Strings.Strings;
 
 /**
  * 

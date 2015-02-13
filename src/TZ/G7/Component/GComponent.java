@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.util.List;
 
 import TZ.G7.GObj;
-import TZ.G7.Component.I.GCompAlt;
+import TZ.G7.Component.Mechnic.GCompAlt;
 import TZ.G7.Data.Unit.GText;
 import TZ.G7.Handler.GInput;
 import TZ.Mechnic.Mechnic;

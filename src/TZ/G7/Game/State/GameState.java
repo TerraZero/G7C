@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import TZ.G7.Component.GButton;
-import TZ.G7.Component.I.GCompAlt;
+import TZ.G7.Component.Mechnic.GCompAlt;
 import TZ.G7.Handler.GInput;
 
 /**

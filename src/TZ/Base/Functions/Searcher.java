@@ -1,4 +1,4 @@
-package TZ.Array.Function;
+package TZ.Base.Functions;
 
 /**
  * 

@@ -2,7 +2,7 @@ package TZ.G7.Component.Data;
 
 import java.awt.Color;
 
-import TZ.G7.Component.I.GCompData;
+import TZ.G7.Component.Mechnic.GCompData;
 
 /**
  * 

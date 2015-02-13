@@ -1,4 +1,4 @@
-package TZ.G7.Component.I;
+package TZ.G7.Component.Mechnic;
 
 import java.awt.Graphics;
 

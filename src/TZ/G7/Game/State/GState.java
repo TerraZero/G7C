@@ -7,7 +7,7 @@ import java.awt.Graphics2D;
 
 import TZ.G7.Animation.GTransformControlled;
 import TZ.G7.Component.GComponentTransition;
-import TZ.G7.Component.I.GCompAlt;
+import TZ.G7.Component.Mechnic.GCompAlt;
 import TZ.G7.Handler.GInput;
 
 /**
