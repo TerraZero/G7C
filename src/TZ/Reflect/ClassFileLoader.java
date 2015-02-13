@@ -50,7 +50,6 @@ public class ClassFileLoader {
 		List<ClassFile> list = this.cache.get(path);
 		
 		if (list == null || reset) {
-			System.out.println("load");
 			Enumeration<URL> res = this.getResources(path);
 			list = this.createList();
 			
