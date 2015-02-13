@@ -4,8 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import TZ.G7.Animation.GTransform;
-import TZ.G7.Component.GComponent;
-import TZ.G7.Component.I.GComp;
+import TZ.G7.Component.GComponentTransition;
+import TZ.G7.Component.I.GCompAlt;
 import TZ.G7.Data.Unit.GText;
 import TZ.G7.Rendering.TextRendering;
 
@@ -19,9 +19,9 @@ import TZ.G7.Rendering.TextRendering;
  * @identifier TZ.G7.Component
  *
  */
-public class GMessageOld extends GComponent {
+public class GMessageOld extends GComponentTransition {
 	
-	public static void show(GComp parent, String text) {
+	public static void show(GCompAlt parent, String text) {
 		
 	}
 	
@@ -122,7 +122,7 @@ public class GMessageOld extends GComponent {
 	 * @see TZ.G7.Component.GComponent#text(TZ.G7.Data.GText)
 	 */
 	@Override
-	public GComp text(GText text) {
+	public GCompAlt text(GText text) {
 		this.rendered = false;
 		return super.text(text);
 	}

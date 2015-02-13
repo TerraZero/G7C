@@ -67,6 +67,15 @@ public class Cache<type> {
 		return clearMap;
 	}
 	
+	public static Cache<?> getCache(String name) {
+		for (Cache<?> c : Cache.register) {
+			if (c.name == name) {
+				return c;
+			}
+		}
+		return null;
+	}
+	
 	public static List<String> getCaches() {
 		List<String> caches = new ArrayList<String>();
 		for (Cache<?> c : Cache.register) {

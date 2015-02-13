@@ -17,7 +17,7 @@ import TZ.G7.Handler.GInput;
  * @identifier TZ.G7.Component
  *
  */
-public class GButton extends GComponent {
+public class GButton extends GComponentTransition {
 	
 	protected StdHandler click;
 

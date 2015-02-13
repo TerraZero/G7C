@@ -1,6 +1,6 @@
 package TZ.G7.Handler.Function;
 
-import TZ.G7.Component.GComponent;
+import TZ.G7.Component.GComponentTransition;
 import TZ.G7.Handler.GInput;
 
 /**
@@ -21,7 +21,7 @@ public abstract class ClickToggle extends ComponentToggle {
 		super(x, y, w, h);
 	}
 	
-	public ClickToggle(GComponent c) {
+	public ClickToggle(GComponentTransition c) {
 		super(c);
 	}
 	

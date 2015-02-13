@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import TZ.G7.GObj;
-import TZ.G7.Component.I.GComp;
+import TZ.G7.Component.I.GCompAlt;
 import TZ.G7.Handler.Function.ToggleFunction;
 import TZ.Ints.IntReply;
 
@@ -161,7 +161,7 @@ public class GInput extends GObj {
 		return new IntReply(this.isMouseEvent(this.moved, x, y, w, h));
 	}
 	
-	public IntReply isIntern(GComp c) {
+	public IntReply isIntern(GCompAlt c) {
 		return this.isIntern(c.x(), c.y(), c.width(), c.height());
 	}
 	
@@ -170,7 +170,7 @@ public class GInput extends GObj {
 		return new IntReply(!this.isMouseEvent(this.moved, x, y, w, h));
 	}
 	
-	public IntReply isExtern(GComp c) {
+	public IntReply isExtern(GCompAlt c) {
 		return this.isExtern(c.x(), c.y(), c.width(), c.height());
 	}
 	
@@ -184,7 +184,7 @@ public class GInput extends GObj {
 		return new IntReply(IntReply.IS_NULL);
 	}
 	
-	public IntReply isHover(GComp c) {
+	public IntReply isHover(GCompAlt c) {
 		return this.isHover(c.x(), c.y(), c.width(), c.height());
 	}
 	
@@ -196,7 +196,7 @@ public class GInput extends GObj {
 		return new IntReply(IntReply.IS_FALSE);
 	}
 	
-	public IntReply isClick(GComp c) {
+	public IntReply isClick(GCompAlt c) {
 		return this.isClick(c.x(), c.y(), c.width(), c.height());
 	}
 	

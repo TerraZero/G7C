@@ -1,6 +1,6 @@
 package TZ.G7.Animation;
 
-import TZ.G7.Component.I.GComp;
+import TZ.G7.Component.I.GCompAlt;
 import TZ.G7.Game.State.GState;
 
 /**
@@ -24,7 +24,7 @@ public class SizeAnimation extends GAnimation {
 	protected int width;
 	protected int height;
 	
-	public SizeAnimation(GState state, GComp component, int duration, int width, int height) {
+	public SizeAnimation(GState state, GCompAlt component, int duration, int width, int height) {
 		super(state, component, duration);
 		this.widthspeed = (width - this.component.width()) / duration;
 		this.heightspeed = (height - this.component.height()) / duration;

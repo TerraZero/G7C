@@ -2,7 +2,7 @@ package TZ.G7.Animation;
 
 import TZ.G7.GObj;
 import TZ.G7.Actions.GAction;
-import TZ.G7.Component.I.GComp;
+import TZ.G7.Component.I.GCompAlt;
 import TZ.G7.Game.State.GState;
 
 /**
@@ -18,10 +18,10 @@ import TZ.G7.Game.State.GState;
 public abstract class GAnimation extends GObj implements GAction {
 	
 	protected GState state;
-	protected GComp component;
+	protected GCompAlt component;
 	protected int duration;
 	
-	public GAnimation(GState state, GComp component, int duration) {
+	public GAnimation(GState state, GCompAlt component, int duration) {
 		this.component = component;
 		this.duration = duration;
 		this.state = state;
@@ -40,7 +40,7 @@ public abstract class GAnimation extends GObj implements GAction {
 		return this.duration;
 	}
 	
-	public GComp component() {
+	public GCompAlt component() {
 		return this.component;
 	}
 	

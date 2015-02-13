@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import TZ.G7.GObj;
-import TZ.G7.Component.I.GComp;
+import TZ.G7.Component.I.GCompAlt;
 import TZ.Ints.IntReply;
 
 /**
@@ -134,7 +134,7 @@ public class GInputSave extends GObj {
 		return new IntReply(reply);
 	}
 	
-	public IntReply isIntern(GComp c) {
+	public IntReply isIntern(GCompAlt c) {
 		return this.isIntern(c.x(), c.y(), c.width(), c.height());
 	}
 	
@@ -148,7 +148,7 @@ public class GInputSave extends GObj {
 		return new IntReply(IntReply.IS_NULL);
 	}
 	
-	public IntReply isHover(GComp c) {
+	public IntReply isHover(GCompAlt c) {
 		return this.isHover(c.x(), c.y(), c.width(), c.height());
 	}
 	
@@ -159,7 +159,7 @@ public class GInputSave extends GObj {
 		return null;
 	}
 	
-	public MouseEvent intern(GComp c) {
+	public MouseEvent intern(GCompAlt c) {
 		return this.intern(c.x(), c.y(), c.width(), c.height());
 	}
 	
@@ -170,7 +170,7 @@ public class GInputSave extends GObj {
 		return false;
 	}
 	
-	public boolean isExtern(GComp c) {
+	public boolean isExtern(GCompAlt c) {
 		return this.isExtern(c.x(), c.y(), c.width(), c.height());
 	}
 	
@@ -181,7 +181,7 @@ public class GInputSave extends GObj {
 		return null;
 	}
 	
-	public MouseEvent extern(GComp c) {
+	public MouseEvent extern(GCompAlt c) {
 		return this.extern(c.x(), c.y(), c.width(), c.height());
 	}
 	
@@ -196,7 +196,7 @@ public class GInputSave extends GObj {
 		return new IntReply(reply);
 	}
 	
-	public IntReply isClick(GComp c) {
+	public IntReply isClick(GCompAlt c) {
 		return this.isClick(c.x(), c.y(), c.width(), c.height());
 	}
 	
@@ -207,7 +207,7 @@ public class GInputSave extends GObj {
 		return null;
 	}
 	
-	public MouseEvent click(GComp c) {
+	public MouseEvent click(GCompAlt c) {
 		return this.click(c.x(), c.y(), c.width(), c.height());
 	}
 	

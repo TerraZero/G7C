@@ -1,6 +1,6 @@
 package TZ.G7.Events.E;
 
-import TZ.G7.Component.I.GComp;
+import TZ.G7.Component.I.GCompAlt;
 import TZ.G7.Events.GEEvent;
 import TZ.G7.Handler.GInput;
 
@@ -17,9 +17,9 @@ import TZ.G7.Handler.GInput;
 public class StdEvent implements GEEvent {
 	
 	protected GInput input;
-	protected GComp comp;
+	protected GCompAlt comp;
 
-	public StdEvent(GInput input, GComp comp) {
+	public StdEvent(GInput input, GCompAlt comp) {
 		this.input = input;
 		this.comp = comp;
 	}
@@ -36,7 +36,7 @@ public class StdEvent implements GEEvent {
 		return this.input;
 	}
 	
-	public GComp component() {
+	public GCompAlt component() {
 		return this.comp;
 	}
 

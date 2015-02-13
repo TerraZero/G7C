@@ -6,8 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 
 import TZ.G7.Animation.GTransformControlled;
-import TZ.G7.Component.GComponent;
-import TZ.G7.Component.I.GComp;
+import TZ.G7.Component.GComponentTransition;
+import TZ.G7.Component.I.GCompAlt;
 import TZ.G7.Handler.GInput;
 
 /**
@@ -20,7 +20,7 @@ import TZ.G7.Handler.GInput;
  * @identifier TZ.G7.Game
  *
  */
-public class GState extends GComponent {
+public class GState extends GComponentTransition {
 	
 	public enum GStateStates {
 		
@@ -154,7 +154,7 @@ public class GState extends GComponent {
 		});
 	}
 	
-	public boolean isRenderComponent(GComp c, int width, int height) {
+	public boolean isRenderComponent(GCompAlt c, int width, int height) {
 		return c.x() > this.scrollX && c.x() < width + this.scrollX && c.y() > this.scrollY && c.y() < height + this.scrollY
 		 || c.x() + c.width() > this.scrollX && c.x() + c.width() < width + this.scrollX && c.y() > this.scrollY && c.y() < height + this.scrollY
 		 || c.x() > this.scrollX && c.x() < width + this.scrollX && c.y() + c.height() > this.scrollY && c.y() + c.height() < height + this.scrollY

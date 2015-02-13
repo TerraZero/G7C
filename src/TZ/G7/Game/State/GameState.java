@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import TZ.G7.Component.GButton;
-import TZ.G7.Component.I.GComp;
+import TZ.G7.Component.I.GCompAlt;
 import TZ.G7.Handler.GInput;
 
 /**
@@ -26,7 +26,7 @@ public class GameState extends GState {
 	}
 
 	// keine componenten umbauen zum direct rendern
-	protected GComp[] fields;
+	protected GCompAlt[] fields;
 	protected int width;
 	protected int field;
 	protected int border;
@@ -52,7 +52,7 @@ public class GameState extends GState {
 	@Override
 	public void stateInit() {
 		super.stateInit();
-		fields = new GComp[this.width * this.width];
+		fields = new GCompAlt[this.width * this.width];
 		for (int i = 0; i < fields.length; i++) {
 			int x = i % this.width;
 			int y = i / this.width;

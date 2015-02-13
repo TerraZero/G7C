@@ -3,8 +3,8 @@ package TZ.G7.Remove;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
-import TZ.G7.Component.GComponent;
-import TZ.G7.Component.I.GComp;
+import TZ.G7.Component.GComponentTransition;
+import TZ.G7.Component.I.GCompAlt;
 
 /**
  * 
@@ -16,7 +16,7 @@ import TZ.G7.Component.I.GComp;
  * @identifier TZ.G7.Component
  *
  */
-public class GLayer extends GComponent {
+public class GLayer extends GComponentTransition {
 	
 	protected boolean isbuffer;
 	protected boolean refresh;
@@ -26,7 +26,7 @@ public class GLayer extends GComponent {
 	 * @see TZ.G7.Component.GComponent#size(int, int)
 	 */
 	@Override
-	public GComp size(int width, int height) {
+	public GCompAlt size(int width, int height) {
 		if (width != this.width || height != this.height) this.actionResize(width, height);
 		return super.size(width, height);
 	}

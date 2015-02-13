@@ -2,7 +2,7 @@ package TZ.G7.Rendering;
 
 import java.awt.Graphics;
 
-import TZ.G7.Component.I.GComp;
+import TZ.G7.Component.I.GCompAlt;
 
 /**
  * 
@@ -16,7 +16,7 @@ import TZ.G7.Component.I.GComp;
  */
 public class BorderRendering {
 	
-	public static void renderSide(Graphics g, int width, int middle, GComp c) {
+	public static void renderSide(Graphics g, int width, int middle, GCompAlt c) {
 		BorderRendering.renderSide(g, width, middle, 0, 0, c.width(), c.height());
 	}
 

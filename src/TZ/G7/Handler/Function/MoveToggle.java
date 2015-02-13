@@ -1,6 +1,6 @@
 package TZ.G7.Handler.Function;
 
-import TZ.G7.Component.GComponent;
+import TZ.G7.Component.GComponentTransition;
 import TZ.G7.Handler.GInput;
 
 /**
@@ -19,7 +19,7 @@ public abstract class MoveToggle extends ComponentToggle {
 		super(x, y, w, h);
 	}
 	
-	public MoveToggle(GComponent c) {
+	public MoveToggle(GComponentTransition c) {
 		super(c);
 	}
 

@@ -1,6 +1,6 @@
 package TZ.G7.Handler.Function;
 
-import TZ.G7.Component.GComponent;
+import TZ.G7.Component.GComponentTransition;
 
 /**
  * 
@@ -26,7 +26,7 @@ public abstract class ComponentToggle implements ToggleFunction {
 		this.h = h;
 	}
 	
-	public ComponentToggle(GComponent c) {
+	public ComponentToggle(GComponentTransition c) {
 		this.x = c.x();
 		this.y = c.y();
 		this.w = c.width();
