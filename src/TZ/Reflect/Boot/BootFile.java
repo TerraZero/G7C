@@ -19,6 +19,7 @@ public class BootFile {
 	protected String path;
 	protected boolean type;
 	protected Map<String, BootFile> contains;
+	protected BootFile parent;
 	
 	public BootFile() {
 		this.contains = new HashMap<String, BootFile>();
@@ -36,6 +37,7 @@ public class BootFile {
 	
 	public void add(String name, BootFile file) {
 		this.contains.put(name, file);
+		file.parent = this;
 	}
 	
 	public String name() {
@@ -54,6 +56,11 @@ public class BootFile {
 		return this.path + "/" + this.fullname();
 	}
 	
+	public String id() {
+		String file = this.path + "/" + this.name;
+		return file.replace('/',  '.');
+	}
+	
 	public String path() {
 		return this.path;
 	}
@@ -68,6 +75,10 @@ public class BootFile {
 	
 	public boolean isPackage() {
 		return !this.type;
+	}
+	
+	public BootFile parent() {
+		return this.parent;
 	}
 	
 }

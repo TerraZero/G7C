@@ -9,6 +9,7 @@ import TZ.Base.Data.IntReply;
 import TZ.G7.GObj;
 import TZ.G7.Component.Mechnic.GCompAlt;
 import TZ.G7.Handler.Function.ToggleFunction;
+import TZ.Reflect.Boot.Booter;
 
 /**
  * 
@@ -20,6 +21,7 @@ import TZ.G7.Handler.Function.ToggleFunction;
  * @identifier TZ.G7.Handler
  *
  */
+@Booter(name="test-booter")
 public class GInput extends GObj {
 	 
 	protected List<KeyEvent> keys;
