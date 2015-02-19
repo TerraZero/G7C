@@ -1,6 +1,6 @@
 package TZ.G7.Component.Render;
 
-import TZ.Mechnic.MechnicCreator;
+import TZ.System.Mechnic.MechnicCreator;
 
 /**
  * 
